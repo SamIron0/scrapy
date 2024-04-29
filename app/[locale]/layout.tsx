@@ -8,7 +8,6 @@ import { Inter } from "next/font/google"
 import { cookies } from "next/headers"
 import { ReactNode } from "react"
 import "./globals.css"
-import ToasterProvider from "@/components/utility/toasterProvider"
 import { Analytics } from "@vercel/analytics/react"
 import { Dashboard } from "@/components/ui/dashboard"
 
@@ -104,7 +103,6 @@ export default async function RootLayout({
         ></script>
       </head>
       <body className={inter.className}>
-        <ToasterProvider />
         <Toaster richColors position="top-center" duration={3000} />
         <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
           {children}
