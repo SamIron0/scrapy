@@ -59,9 +59,9 @@ export default function Dash() {
 
   return (
     <div className="my-12 flex w-full flex-col items-center p-6">
-      <div className="flex w-full  grid-cols-2 items-center space-x-4 p-4">
-        <div className="mb-4 flex w-full  flex-col border-2  p-4">
-          <Label className="text-md pt-4" htmlFor="weight">
+      <div className="flex w-full  grid-cols-2 items-center space-x-4 p-6">
+        <div className=" flex w-full  flex-col  rounded-lg border-2 ">
+          <Label className="text-md pt-8" htmlFor="weight">
             Url
           </Label>
           <Input
@@ -72,7 +72,7 @@ export default function Dash() {
             style={{ fontSize: "16px" }}
           />
         </div>
-        <div className="mb-4 flex w-full flex-col rounded-md border-2 p-4">
+        <div className=" flex w-full flex-col rounded-lg border-2 p-4">
           <Label className="text-md pt-8" htmlFor="weight">
             Description (optional)
           </Label>
@@ -94,7 +94,7 @@ export default function Dash() {
         </Button>
       </div>
 
-      <Label className="flex w-full flex-col pt-8 text-2xl ">Results</Label>
+      <Label className="flex w-full flex-col pt-11 text-2xl ">Results</Label>
       <div className="w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
         {variables?.map((variable: any) => (
           <div
