@@ -60,9 +60,7 @@ export default function Dash() {
     <div className="my-12 flex w-full flex-col items-center p-6">
       <div className="w-full items-center  space-y-4 md:flex   md:space-x-4 ">
         <div className=" flex size-full flex-col rounded-lg border-2 p-4 ">
-          <Label className="text-md pb-1 pt-8" htmlFor="weight">
-            Url
-          </Label>
+          <Label className="text-md pb-12 pt-8">Url</Label>
           <Input
             value={url}
             onChange={e => setUrl(e.target.value)}
@@ -72,9 +70,7 @@ export default function Dash() {
           />
         </div>
         <div className=" flex w-full flex-col rounded-lg border-2 p-4">
-          <Label className="text-md pb-1 pt-8" htmlFor="weight">
-            Description (optional)
-          </Label>
+          <Label className="text-md pb-1 pt-8">Description (optional)</Label>
           <TextareaAutosize
             placeholder={`Improve the accuracy of the scraper by describing the data you want to receive.`}
             value={description}
