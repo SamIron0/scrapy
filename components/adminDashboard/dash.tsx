@@ -15,7 +15,8 @@ interface Props {}
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
-  const [data, setData] = useState({} as TablesInsert<"recipes">)
+  const [data, setData] = useState({} as any)
+  const [variables, setVariables] = useState(data.variables || [])
   const [url, setUrl] = useState("")
 
   useEffect(() => {
@@ -70,28 +71,7 @@ export default function Dash() {
         </div>
       </div>
       {data ? (
-        <div className="mt-8 flex w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
-          <div>Name:{data.name}</div>
-          <div>Description: {data.description}</div>
-          <ul>
-            Ingredients:
-            {data.ingredients?.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
-          <div> protein:{data.protein}</div>
-          <div> fats:{data.fats}</div>
-          <div> carbs:{data.carbs}</div>
-          <div> calories:{data.calories}</div>
-          <ul>
-            instructions:
-            {data.instructions?.map((instruction, index) => (
-              <li key={index}>{instruction}</li>
-            ))}
-          </ul>
-          <div> portions:{data.portions}</div>
-          <div> cooking_time:{data.cooking_time}</div>
-        </div>
+        <div className="mt-8 flex w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2"></div>
       ) : null}
     </div>
   )
