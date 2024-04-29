@@ -108,23 +108,11 @@ export default async function RootLayout({
         ></script>
       </head>
       <body className={inter.className}>
-        <ToasterProvider />
-        <Providers attribute="class" defaultTheme="dark">
-          <TranslationsProvider
-            namespaces={i18nNamespaces}
-            locale={locale}
-            resources={resources}
-          >
-            <Toaster richColors position="top-center" duration={3000} />
-            <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
-              {session ? (
-                <GlobalState>{children}</GlobalState>
-              ) : (
-                <Dashboard>{children}</Dashboard>
-              )}
-            </div>
-          </TranslationsProvider>
-        </Providers>
+        <Toaster richColors position="top-center" duration={3000} />
+        <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
+          {session ? <>{children}</> : <>{children}</>}
+        </div>
+
         <Analytics />
       </body>
     </html>
