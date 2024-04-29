@@ -31,11 +31,12 @@ export default function Dash() {
   }, [])
 
   const handleScrapeUrl = async (url: string) => {
+    const toastId = toast.loading("Scraping...")
     if (!url) {
+      toast.dismiss(toastId)
       toast.error("Please enter a valid URL")
       return
     }
-    const toastId = toast.loading("Scraping...")
     try {
       const apiKey = "YyUzxAyn6O6r9ZLUgLTLnarp27Rh5WsW5U0XeXhs"
       const apiUrl =
