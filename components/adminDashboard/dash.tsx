@@ -59,7 +59,7 @@ export default function Dash() {
 
   return (
     <div className="my-12 flex w-full flex-col items-center p-6">
-      <div className="flex w-full  grid-cols-2 items-center space-x-4 p-6">
+      <div className="flex w-full  items-center space-x-4 p-4 sm:grid-cols-2 sm:p-6">
         <div className=" flex w-full  flex-col  rounded-lg border-2 ">
           <Label className="text-md pt-8" htmlFor="weight">
             Url
