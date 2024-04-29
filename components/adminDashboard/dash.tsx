@@ -33,12 +33,11 @@ export default function Dash() {
     checkUser()
   }, [])
   const handleScrapeUrl = async () => {
-    const toastId = toast.loading("Scraping...")
     if (!url) {
-      toast.dismiss(toastId)
       toast.error("Please enter a valid URL")
       return
     }
+    const toastId = toast.loading("Scraping...")
     try {
       const response = await fetch("api/scrape", {
         method: "POST",
@@ -59,7 +58,7 @@ export default function Dash() {
 
   return (
     <div className="my-12 flex w-full flex-col items-center p-6">
-      <div className="w-full items-center  space-x-4 sm:flex sm:grid-cols-2 sm:space-x-4 ">
+      <div className="w-full items-center  space-x-4 sm:flex sm:space-x-4 md:grid-cols-2 ">
         <div className=" flex size-full flex-col rounded-lg  border-2  p-4 ">
           <Label className="text-md pb-1 pt-8" htmlFor="weight">
             Url
