@@ -37,16 +37,27 @@ export default function Dash() {
     }
     const toastId = toast.loading("Scraping...")
     try {
-      const endpoint =
+      const apiKey = "YyUzxAyn6O6r9ZLUgLTLnarp27Rh5WsW5U0XeXhs"
+      const apiUrl =
         "https://0dab1tpzjk.execute-api.us-east-1.amazonaws.com/default/scrape"
-      const config = {
-        headers: {
-          "x-api-key": "YyUzxAyn6O6r9ZLUgLTLnarp27Rh5WsW5U0XeXhs"
-        }
-      }
-      const response = await axios.post(endpoint, { url }, config)
-      const data = response.data.body
+
+      const headers = new Headers({
+        "Content-Type": "application/json",
+        "x-api-key": apiKey
+      })
+
+      const data = { url: url } // replace with your request data
+
+      fetch(apiUrl, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error))
       toast.dismiss(toastId)
+      toast.success("Scraped data: " + JSON.stringify(data))
     } catch (error) {
       console.log(error)
       toast.dismiss(toastId)
