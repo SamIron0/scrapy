@@ -103,11 +103,13 @@ export default async function RootLayout({
         ></script>
       </head>
       <body className={inter.className}>
-        <Toaster richColors position="top-center" duration={3000} />
-        <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
-          {children}
-        </div>
-        <Analytics />
+        <Providers attribute="class" defaultTheme="dark">
+          <Toaster richColors position="top-center" duration={3000} />
+          <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
+            {children}
+          </div>
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )

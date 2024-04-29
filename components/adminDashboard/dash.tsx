@@ -16,7 +16,7 @@ export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
   const [data, setData] = useState({} as any)
-  const [variables, setVariables] = useState(data.variables || [])
+  const [variables, setVariables] = useState([])
   const [url, setUrl] = useState("")
 
   useEffect(() => {
@@ -49,14 +49,14 @@ export default function Dash() {
 
       const data = { url } // replace with your request data
 
-      fetch(apiUrl, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers,
         body: JSON.stringify(data)
       })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error))
+      const res = await response.json()
+      console.log(res)
+      setVariables(res.variables)
       toast.dismiss(toastId)
       toast.success("Scraped data: " + JSON.stringify(data))
     } catch (error) {
@@ -83,7 +83,7 @@ export default function Dash() {
           </Button>
         </div>
       </div>
-      {data?.variables ? (
+      {variables ? (
         <>
           <Button className="mb-3 bg-primary px-6">Get data</Button>
           <div className="mt-8 flex w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2"></div>
