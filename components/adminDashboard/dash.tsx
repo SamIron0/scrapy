@@ -32,7 +32,7 @@ export default function Dash() {
 
     checkUser()
   }, [])
-  const handleScrapeUrl = async (url: string, description = "") => {
+  const handleScrapeUrl = async () => {
     const toastId = toast.loading("Scraping...")
     if (!url) {
       toast.dismiss(toastId)
@@ -59,9 +59,9 @@ export default function Dash() {
 
   return (
     <div className="my-12 flex w-full flex-col items-center p-6">
-      <div className="flex w-full  items-center space-x-4 p-4 sm:grid-cols-2 sm:p-6">
-        <div className=" flex w-full  flex-col  rounded-lg border-2 ">
-          <Label className="text-md pt-8" htmlFor="weight">
+      <div className="w-full items-center  space-x-4 sm:flex sm:grid-cols-2 sm:space-x-4 ">
+        <div className=" flex size-full flex-col rounded-lg  border-2  p-4 ">
+          <Label className="text-md pb-1 pt-8" htmlFor="weight">
             Url
           </Label>
           <Input
@@ -73,7 +73,7 @@ export default function Dash() {
           />
         </div>
         <div className=" flex w-full flex-col rounded-lg border-2 p-4">
-          <Label className="text-md pt-8" htmlFor="weight">
+          <Label className="text-md pb-1 pt-8" htmlFor="weight">
             Description (optional)
           </Label>
           <TextareaAutosize
@@ -89,7 +89,10 @@ export default function Dash() {
         </div>
       </div>
       <div className="flex w-full justify-end">
-        <Button className="text-md mt-4 bg-purple-600 px-10 py-3 text-white">
+        <Button
+          onClick={handleScrapeUrl}
+          className="text-md mt-4 bg-purple-600 px-10 py-3 text-white"
+        >
           Scrape
         </Button>
       </div>
