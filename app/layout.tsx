@@ -1,8 +1,4 @@
 import { Toaster } from "@/components/ui/sonner"
-import { GlobalState } from "@/components/utility/global-state"
-import { Providers } from "@/components/utility/providers"
-import TranslationsProvider from "@/components/utility/translations-provider"
-import initTranslations from "@/lib/i18n"
 import { Database } from "@/supabase/types"
 import { createServerClient } from "@supabase/ssr"
 import { Metadata, Viewport } from "next"
@@ -67,12 +63,7 @@ export const viewport: Viewport = {
   themeColor: "#000000"
 }
 
-const i18nNamespaces = ["translation"]
-
-export default async function RootLayout({
-  children,
-  params: { locale }
-}: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
   const cookieStore = cookies()
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -86,8 +77,6 @@ export default async function RootLayout({
     }
   )
   const session = (await supabase.auth.getSession()).data.session
-
-  const { t, resources } = await initTranslations(locale, i18nNamespaces)
 
   return (
     <html lang="en" suppressHydrationWarning>
