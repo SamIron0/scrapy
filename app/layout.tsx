@@ -96,7 +96,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <body className={inter.className}>
         <Toaster richColors position="top-center" duration={3000} />
         <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
-          {session ? <>{children}</> : <>{children}</>}
+          {session ? <div>{children}</div> : <div>{children}</div>}
         </div>
 
         <Analytics />
