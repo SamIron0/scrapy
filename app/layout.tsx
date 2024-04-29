@@ -18,9 +18,6 @@ const APP_DESCRIPTION = "Chabot UI PWA!"
 
 interface RootLayoutProps {
   children: ReactNode
-  params: {
-    locale: string
-  }
 }
 
 export const metadata: Metadata = {
