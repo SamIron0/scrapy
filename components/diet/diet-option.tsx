@@ -17,7 +17,7 @@ export const DietOption: FC<DietOptionProps> = ({ diet, onSelect }) => {
       side="bottom"
       trigger={
         <div
-          className="hover:bg-accent flex w-full cursor-pointer justify-start space-x-3 truncate rounded p-2 hover:opacity-50"
+          className="flex w-full cursor-pointer justify-start space-x-3 truncate rounded p-2 hover:bg-accent hover:opacity-50"
           onClick={onSelect}
         >
           <div className="flex items-center space-x-2">
