@@ -1,4 +1,8 @@
 import { Toaster } from "@/components/ui/sonner"
+import { GlobalState } from "@/components/utility/global-state"
+import { Providers } from "@/components/utility/providers"
+import TranslationsProvider from "@/components/utility/translations-provider"
+import initTranslations from "@/lib/i18n"
 import { Database } from "@/supabase/types"
 import { createServerClient } from "@supabase/ssr"
 import { Metadata, Viewport } from "next"
@@ -18,6 +22,9 @@ const APP_DESCRIPTION = "Chabot UI PWA!"
 
 interface RootLayoutProps {
   children: ReactNode
+  params: {
+    locale: string
+  }
 }
 
 export const metadata: Metadata = {
@@ -60,7 +67,12 @@ export const viewport: Viewport = {
   themeColor: "#000000"
 }
 
-export default async function RootLayout({ children }: RootLayoutProps) {
+const i18nNamespaces = ["translation"]
+
+export default async function RootLayout({
+  children,
+  params: { locale }
+}: RootLayoutProps) {
   const cookieStore = cookies()
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -74,6 +86,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     }
   )
   const session = (await supabase.auth.getSession()).data.session
+
+  const { t, resources } = await initTranslations(locale, i18nNamespaces)
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -94,11 +108,23 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         ></script>
       </head>
       <body className={inter.className}>
-        <Toaster richColors position="top-center" duration={3000} />
-        <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
-          {session ? <div>{children}</div> : <div>{children}</div>}
-        </div>
-
+        <ToasterProvider />
+        <Providers attribute="class" defaultTheme="dark">
+          <TranslationsProvider
+            namespaces={i18nNamespaces}
+            locale={locale}
+            resources={resources}
+          >
+            <Toaster richColors position="top-center" duration={3000} />
+            <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
+              {session ? (
+                <GlobalState>{children}</GlobalState>
+              ) : (
+                <Dashboard>{children}</Dashboard>
+              )}
+            </div>
+          </TranslationsProvider>
+        </Providers>
         <Analytics />
       </body>
     </html>
