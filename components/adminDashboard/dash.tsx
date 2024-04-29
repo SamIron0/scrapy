@@ -39,11 +39,21 @@ export default function Dash() {
     }
     const toastId = toast.loading("Scraping...")
     try {
-      const response = await fetch("api/scrape", {
-        method: "POST",
-        body: JSON.stringify({ url, description })
-      })
-      const res = await response.json()
+      const data = await fetch(
+        "https://e558-2604-3d09-aa7a-95e0-e006-b4c3-7148-61bd.ngrok-free.app/scrape",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            url,
+            description
+          })
+        }
+      )
+      const res = await data.json()
+
       console.log(res)
       setVariables(res)
       toast.dismiss(toastId)
