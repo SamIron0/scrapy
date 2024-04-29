@@ -1,4 +1,3 @@
-"use client"
 import Dash from "@/components/adminDashboard/dash"
 import { ChatInput } from "@/components/chat/chat-input"
 import { Brand } from "@/components/ui/brand"
@@ -10,9 +9,7 @@ import axios from "axios"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 
-export default async function ChatPage() {
-  const router = useRouter()
-  const { theme } = useTheme()
+export default async function Home() {
   const supabase = createClient()
 
   const {
