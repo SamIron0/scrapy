@@ -83,7 +83,7 @@ export default function Dash() {
           </Button>
         </div>
       </div>
-      {variables ? (
+      {variables?.length > 0 ? (
         <>
           <Button className="mb-3 bg-primary px-6">Get data</Button>
           <div className="mt-8 flex w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2"></div>
