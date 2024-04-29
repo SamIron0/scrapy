@@ -11,7 +11,6 @@ import {
 } from "@tabler/icons-react"
 import Image from "next/image"
 import { FC, useContext, useEffect, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 import { TextareaAutosize } from "../ui/textarea-autosize"
 import { ChatCommandInput } from "./chat-command-input"
@@ -44,8 +43,6 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
 
     getSession()
   }, []) // Run the effect only once, when the component mounts
-
-  const { t } = useTranslation()
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
 
@@ -89,10 +86,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
         <TextareaAutosize
           textareaRef={chatInputRef}
           className="text-md flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-          placeholder={t(
-            // `Ask anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
-            `Asian Dinner ideas`
-          )}
+          placeholder={""}
           onValueChange={handleInputChange}
           value={input}
           minRows={1}
