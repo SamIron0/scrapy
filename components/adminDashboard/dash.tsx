@@ -46,7 +46,7 @@ export default function Dash() {
         "x-api-key": apiKey
       })
 
-      const data = { url: url } // replace with your request data
+      const data = { url } // replace with your request data
 
       fetch(apiUrl, {
         method: "POST",
@@ -63,6 +63,7 @@ export default function Dash() {
       toast.dismiss(toastId)
       toast.error("Error scraping data in catch")
     }
+    toast.dismiss(toastId)
   }
 
   return (
