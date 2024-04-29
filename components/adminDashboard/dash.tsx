@@ -15,7 +15,7 @@ interface Props {}
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
-  const [recipe, setRecipe] = useState({} as TablesInsert<"recipes">)
+  const [data, setData] = useState({} as TablesInsert<"recipes">)
   const [url, setUrl] = useState("")
 
   useEffect(() => {
@@ -24,11 +24,6 @@ export default function Dash() {
         data: { user }
       } = await supabase.auth.getUser()
       const session = (await supabase.auth.getSession()).data.session
-
-      if (session?.user.email !== "ekaronke@gmail.com") {
-        console.log("session", session?.user.email)
-        router.push("/")
-      }
     }
 
     checkUser()
@@ -42,43 +37,19 @@ export default function Dash() {
     const toastId = toast.loading("Scraping...")
     try {
       const endpoint =
-        "https://46f5-2604-3d09-aa7a-95e0-5130-b4ed-87b7-557d.ngrok-free.app/scrape"
-      const response = await axios.post(endpoint, { url })
+        "https://0dab1tpzjk.execute-api.us-east-1.amazonaws.com/default/scrape"
+      const config = {
+        headers: {
+          "x-api-key": "YyUzxAyn6O6r9ZLUgLTLnarp27Rh5WsW5U0XeXhs"
+        }
+      }
+      const response = await axios.post(endpoint, { url }, config)
       const data = response.data.body
-      const recipe: TablesInsert<"recipes"> = {
-        id: uuidv4(),
-        name: data.name,
-        description: data.description,
-        ingredients: data.ingredients,
-        imgurl: data.imgurl,
-        protein: data.protein,
-        fats: data.fats,
-        carbs: data.carbs,
-        calories: data.calories,
-        instructions: data.instructions,
-        portions: data.portions,
-        cooking_time: data.cooking_time,
-        url: url
-      }
-
-      const createRecipeResponse = await fetch("api/recipe/create_recipe", {
-        method: "POST",
-        body: JSON.stringify({ recipe: recipe, tags: data.tags, url: url }),
-        headers: { "Content-Type": "application/json" }
-      })
-
-      if (createRecipeResponse.status === 200) {
-        toast.dismiss(toastId)
-        setRecipe(recipe)
-        toast.success("Recipe scraped successfully")
-      } else {
-        toast.dismiss(toastId)
-        toast.error("Error scraping recipe")
-      }
+      toast.dismiss(toastId)
     } catch (error) {
       console.log(error)
       toast.dismiss(toastId)
-      toast.error("Error scraping recipe in catch")
+      toast.error("Error scraping data in catch")
     }
   }
 
@@ -89,7 +60,8 @@ export default function Dash() {
           <Input
             value={url}
             onChange={e => setUrl(e.target.value)}
-            placeholder={"url"}
+            className="w-full max-w-3xl"
+            placeholder={"Enter url"}
             style={{ fontSize: "16px" }}
           />
           <Button onClick={() => handleScrapeUrl(url)} className="mt-6 px-20">
@@ -97,28 +69,28 @@ export default function Dash() {
           </Button>
         </div>
       </div>
-      {recipe ? (
+      {data ? (
         <div className="mt-8 flex w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
-          <div>Name:{recipe.name}</div>
-          <div>Description: {recipe.description}</div>
+          <div>Name:{data.name}</div>
+          <div>Description: {data.description}</div>
           <ul>
             Ingredients:
-            {recipe.ingredients?.map((ingredient, index) => (
+            {data.ingredients?.map((ingredient, index) => (
               <li key={index}>{ingredient}</li>
             ))}
           </ul>
-          <div> protein:{recipe.protein}</div>
-          <div> fats:{recipe.fats}</div>
-          <div> carbs:{recipe.carbs}</div>
-          <div> calories:{recipe.calories}</div>
+          <div> protein:{data.protein}</div>
+          <div> fats:{data.fats}</div>
+          <div> carbs:{data.carbs}</div>
+          <div> calories:{data.calories}</div>
           <ul>
             instructions:
-            {recipe.instructions?.map((instruction, index) => (
+            {data.instructions?.map((instruction, index) => (
               <li key={index}>{instruction}</li>
             ))}
           </ul>
-          <div> portions:{recipe.portions}</div>
-          <div> cooking_time:{recipe.cooking_time}</div>
+          <div> portions:{data.portions}</div>
+          <div> cooking_time:{data.cooking_time}</div>
         </div>
       ) : null}
     </div>
