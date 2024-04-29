@@ -32,7 +32,7 @@ export default function Dash() {
 
     checkUser()
   }, [])
-  const handleScrapeUrl = async (url: string) => {
+  const handleScrapeUrl = async (url: string, description = "") => {
     const toastId = toast.loading("Scraping...")
     if (!url) {
       toast.dismiss(toastId)
@@ -40,25 +40,13 @@ export default function Dash() {
       return
     }
     try {
-      const apiKey = "YyUzxAyn6O6r9ZLUgLTLnarp27Rh5WsW5U0XeXhs"
-      const apiUrl =
-        "https://0dab1tpzjk.execute-api.us-east-1.amazonaws.com/default/scrape"
-
-      const headers = new Headers({
-        "Content-Type": "application/json",
-        "x-api-key": apiKey
-      })
-
-      const data = { url } // replace with your request data
-
-      const response = await fetch(apiUrl, {
+      const response = await fetch("api/scrape", {
         method: "POST",
-        headers,
-        body: JSON.stringify(data)
+        body: JSON.stringify({ url, description })
       })
       const res = await response.json()
       console.log(res)
-      setVariables(res.variables)
+      setVariables(res)
       toast.dismiss(toastId)
       toast.success("Scraped data: " + JSON.stringify(data))
     } catch (error) {
@@ -71,8 +59,8 @@ export default function Dash() {
 
   return (
     <div className="my-12 flex w-full flex-col items-center p-6">
-      <div className="w-full  grid-cols-2 items-center p-4">
-        <div className="flex w-full  flex-col border-2 p-4">
+      <div className="flex w-full  grid-cols-2 items-center space-x-4 p-4">
+        <div className="mb-4 flex w-full  flex-col border-2  p-4">
           <Label className="text-md pt-4" htmlFor="weight">
             Url
           </Label>
@@ -84,7 +72,7 @@ export default function Dash() {
             style={{ fontSize: "16px" }}
           />
         </div>
-        <div className="flex w-full flex-col border-2 p-4">
+        <div className="mb-4 flex w-full flex-col rounded-md border-2 p-4">
           <Label className="text-md pt-8" htmlFor="weight">
             Description (optional)
           </Label>
@@ -100,23 +88,22 @@ export default function Dash() {
           />{" "}
         </div>
       </div>
-      <Button className="text-md mt-4 bg-purple-600 p-6 text-white">
-        Scrape
-      </Button>
+      <div className="flex w-full justify-end">
+        <Button className="text-md mt-4 bg-purple-600 px-10 py-3 text-white">
+          Scrape
+        </Button>
+      </div>
 
-      <div>
-        <Label className="flex flex-col pt-8 text-2xl">Results</Label>
-        <div className="w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
-          {variables?.map((variable: any) => (
-            <div
-              key={uuidv4()}
-              className="w-full flex-col justify-center rounded-md border-2 p-2"
-            >
-              {variable}
-            </div>
-          ))}
-          s
-        </div>
+      <Label className="flex w-full flex-col pt-8 text-2xl ">Results</Label>
+      <div className="w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
+        {variables?.map((variable: any) => (
+          <div
+            key={uuidv4()}
+            className="w-full flex-col justify-center rounded-md border-2 p-2"
+          >
+            {variable}
+          </div>
+        ))}
       </div>
       {variables?.length > 0 ? (
         <>
