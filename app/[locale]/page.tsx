@@ -1,4 +1,5 @@
 "use client"
+import Dash from "@/components/adminDashboard/dash"
 import { ChatInput } from "@/components/chat/chat-input"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
@@ -10,8 +11,6 @@ import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 
 export default async function ChatPage() {
-  const router = useRouter()
-  const { theme } = useTheme()
   const supabase = createClient()
 
   const {
@@ -22,6 +21,5 @@ export default async function ChatPage() {
     console.error("Error getting session:", error)
   } else {
   }
-  const recipes = await getGuestForYou()
-  return <div> hello </div>
+  return <Dash />
 }
