@@ -9,6 +9,8 @@ import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { urlExists } from "@/db/recipes"
+import { Label } from "../ui/label"
+import { TextareaAutosize } from "../ui/textarea-autosize"
 
 interface Props {}
 
@@ -17,6 +19,7 @@ export default function Dash() {
   const router = useRouter()
   const [data, setData] = useState({} as any)
   const [variables, setVariables] = useState([])
+  const [description, setDescription] = useState("")
   const [url, setUrl] = useState("")
 
   useEffect(() => {
@@ -29,7 +32,6 @@ export default function Dash() {
 
     checkUser()
   }, [])
-
   const handleScrapeUrl = async (url: string) => {
     const toastId = toast.loading("Scraping...")
     if (!url) {
@@ -68,19 +70,52 @@ export default function Dash() {
   }
 
   return (
-    <div className="my-12 flex w-full flex-col items-center p-4">
-      <div className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in">
-        <div className="my-12 flex w-full flex-col items-center p-4">
+    <div className="my-12 flex w-full flex-col items-center p-6">
+      <div className="w-full  grid-cols-2 items-center p-4">
+        <div className="flex w-full  flex-col border-2 p-4">
+          <Label className="text-md pt-4" htmlFor="weight">
+            Url
+          </Label>
           <Input
             value={url}
             onChange={e => setUrl(e.target.value)}
-            className="w-full max-w-3xl"
+            className="w-full max-w-2xl"
             placeholder={"Enter url"}
             style={{ fontSize: "16px" }}
           />
-          <Button onClick={() => handleScrapeUrl(url)} className="mt-6 px-20">
-            Scrape
-          </Button>
+        </div>
+        <div className="flex w-full flex-col border-2 p-4">
+          <Label className="text-md pt-8" htmlFor="weight">
+            Description (optional)
+          </Label>
+          <TextareaAutosize
+            placeholder={`Improve the accuracy of the scraper by describing the data you want to receive.`}
+            value={description}
+            onValueChange={value => {
+              setDescription(value)
+            }}
+            minRows={3}
+            maxRows={5}
+            className="w-full"
+          />{" "}
+        </div>
+      </div>
+      <Button className="text-md mt-4 bg-purple-600 p-6 text-white">
+        Scrape
+      </Button>
+
+      <div>
+        <Label className="flex flex-col pt-8 text-2xl">Results</Label>
+        <div className="w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
+          {variables?.map((variable: any) => (
+            <div
+              key={uuidv4()}
+              className="w-full flex-col justify-center rounded-md border-2 p-2"
+            >
+              {variable}
+            </div>
+          ))}
+          s
         </div>
       </div>
       {variables?.length > 0 ? (
