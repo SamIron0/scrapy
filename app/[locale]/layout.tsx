@@ -1,8 +1,6 @@
 import { Toaster } from "@/components/ui/sonner"
 import { GlobalState } from "@/components/utility/global-state"
 import { Providers } from "@/components/utility/providers"
-import TranslationsProvider from "@/components/utility/translations-provider"
-import initTranslations from "@/lib/i18n"
 import { Database } from "@/supabase/types"
 import { createServerClient } from "@supabase/ssr"
 import { Metadata, Viewport } from "next"
@@ -87,8 +85,6 @@ export default async function RootLayout({
   )
   const session = (await supabase.auth.getSession()).data.session
 
-  const { t, resources } = await initTranslations(locale, i18nNamespaces)
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -109,22 +105,14 @@ export default async function RootLayout({
       </head>
       <body className={inter.className}>
         <ToasterProvider />
-        <Providers attribute="class" defaultTheme="dark">
-          <TranslationsProvider
-            namespaces={i18nNamespaces}
-            locale={locale}
-            resources={resources}
-          >
-            <Toaster richColors position="top-center" duration={3000} />
-            <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
-              {session ? (
-                <GlobalState>{children}</GlobalState>
-              ) : (
-                <Dashboard>{children}</Dashboard>
-              )}
-            </div>
-          </TranslationsProvider>
-        </Providers>
+        <Toaster richColors position="top-center" duration={3000} />
+        <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
+          {session ? (
+            <GlobalState>{children}</GlobalState>
+          ) : (
+            <Dashboard>{children}</Dashboard>
+          )}
+        </div>
         <Analytics />
       </body>
     </html>
