@@ -57,7 +57,7 @@ export default function Dash() {
       console.log(res)
       setVariables(res)
       toast.dismiss(toastId)
-      toast.success("Scraped data: " + JSON.stringify(data))
+      toast.success("Done")
     } catch (error) {
       console.log(error)
       toast.dismiss(toastId)
@@ -70,17 +70,17 @@ export default function Dash() {
     <div className="my-12 flex w-full flex-col items-center p-6">
       <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
         <div className=" flex size-full h-[180px] flex-col rounded-lg border-2 p-4 ">
-          <Label className="text-md pb-4 pt-8">Url</Label>
+          <Label className="pb-1 text-xl">Enter url</Label>
           <Input
             value={url}
             onChange={e => setUrl(e.target.value)}
             className="w-full max-w-2xl"
-            placeholder={"Enter url"}
+            placeholder={"https://example.com"}
             style={{ fontSize: "16px" }}
           />
         </div>
         <div className=" flex h-[180px] w-full flex-col rounded-lg border-2 p-4">
-          <Label className="text-md pb-1 pt-8">Description (optional)</Label>
+          <Label className="pb-1 text-xl ">Description (optional)</Label>
           <TextareaAutosize
             placeholder={`Improve the accuracy of the scraper by describing the data you want to receive.`}
             value={description}
@@ -89,7 +89,7 @@ export default function Dash() {
             }}
             minRows={3}
             maxRows={5}
-            className="w-full"
+            className="w-full text-[16px]"
           />{" "}
         </div>
       </div>
@@ -102,7 +102,7 @@ export default function Dash() {
         </Button>
       </div>
 
-      <Label className="flex w-full flex-col pt-11 text-2xl ">Results</Label>
+      <Label className="flex w-full flex-col pt-16 text-3xl ">Results</Label>
       <div className="w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
         {variables?.map((variable: any) => (
           <div
