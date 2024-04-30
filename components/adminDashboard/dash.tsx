@@ -21,7 +21,7 @@ interface Props {}
 export default function Dash() {
   const supabase = createClient()
   const [data, setData] = useState({} as any)
-  const [results, setResults] = useState({} as any)
+  const [results, setResults] = useState()
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState("")
 
@@ -188,10 +188,11 @@ export default function Dash() {
           {results ? (
             !isChecked ? (
               <pre
-                className="overflow-x-auto whitespace-pre-wrap"
+                className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2   "
                 style={{
                   whiteSpace: "pre-wrap",
-                  wordBreak: "break-all"
+                  wordBreak: "break-all",
+                  margin: 0
                 }}
               >
                 <SyntaxHighlighter language="json" style={vscDarkPlus}>
