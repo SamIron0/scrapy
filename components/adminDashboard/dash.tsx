@@ -177,11 +177,11 @@ export default function Dash() {
           </label>
         </div>
 
-        <div className="w-full max-w-4xl flex-col justify-center rounded-md border border-input bg-black p-2">
+        <div className="w-full max-w-4xl flex-col justify-center rounded-md border border-input">
           {results &&
             (!isChecked ? (
               <pre
-                className="overflow-x-auto whitespace-pre-wrap p-2"
+                className="overflow-x-auto whitespace-pre-wrap"
                 style={{
                   whiteSpace: "pre-wrap",
                   wordBreak: "break-all"
@@ -192,7 +192,7 @@ export default function Dash() {
                 </SyntaxHighlighter>
               </pre>
             ) : (
-              <div className=""></div>
+              <div className="bg-black"></div>
             ))}
         </div>
       </div>
