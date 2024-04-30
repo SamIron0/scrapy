@@ -177,7 +177,12 @@ export default function Dash() {
         </div>
 
         <div className="w-full max-w-4xl flex-col justify-center rounded-md border-2 bg-black p-2">
-          {results && <pre>{JSON.stringify(results, null, 2)}</pre>}
+          {results &&
+            (isChecked ? (
+              <pre className="p-2">{JSON.stringify(results, null, 2)}</pre>
+            ) : (
+              <div className="py-20"></div>
+            ))}
         </div>
       </div>
     </div>
