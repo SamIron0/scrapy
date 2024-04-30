@@ -187,18 +187,14 @@ export default function Dash() {
         <div className="w-full max-w-4xl flex-col justify-center border border-input">
           {results ? (
             !isChecked ? (
-              <pre
-                className="overflow-x-auto whitespace-pre-wrap rounded-lg p-2   "
-                style={{
-                  whiteSpace: "pre-wrap",
-                  wordBreak: "break-all",
-                  margin: 0
-                }}
+              <SyntaxHighlighter
+                className="w-full rounded-lg"
+                margin="0"
+                language="json"
+                style={vscDarkPlus}
               >
-                <SyntaxHighlighter language="json" style={vscDarkPlus}>
-                  {json}
-                </SyntaxHighlighter>
-              </pre>
+                {json}
+              </SyntaxHighlighter>
             ) : (
               <div className="bg-black"></div>
             )
