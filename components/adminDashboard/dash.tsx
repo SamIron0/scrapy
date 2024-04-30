@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { Key, useEffect, useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import axios from "axios"
@@ -233,9 +233,11 @@ export default function Dash() {
                     <span style={{ color: "blue" }}>{key}</span>:{" "}
                     {Array.isArray(results[key]) ? (
                       <ul>
-                        {results[key].map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
+                        {results[key].map(
+                          (item: any, index: Key | null | undefined) => (
+                            <li key={index}>{item}</li>
+                          )
+                        )}
                       </ul>
                     ) : typeof results[key] === "object" ? (
                       <ul>
