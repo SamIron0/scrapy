@@ -35,9 +35,13 @@ export default function Dash() {
 
     checkUser()
   }, [])
+  const [isLoading, setIsLoading] = useState(false)
   const handleScrapeUrl = async () => {
+    setIsLoading(true)
     if (!url) {
       toast.error("Please enter a valid URL")
+      setIsLoading(false)
+
       return
     }
     const toastId = toast.loading("Scraping...")
@@ -60,6 +64,8 @@ export default function Dash() {
       console.log(res.body)
       setResults(res.body)
       toast.dismiss(toastId)
+      setIsLoading(false)
+
       toast.success("Done")
     } catch (error) {
       console.log(error)
@@ -111,6 +117,7 @@ export default function Dash() {
       </div>
       <div className="flex w-full justify-end">
         <Button
+          disabled={isLoading}
           onClick={handleScrapeUrl}
           className="text-md mt-4 bg-purple-600 px-16 py-3 text-white"
         >
