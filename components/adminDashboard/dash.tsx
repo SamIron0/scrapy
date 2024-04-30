@@ -67,10 +67,13 @@ export default function Dash() {
   }
 
   return (
-    <div className="my-12 flex w-full flex-col items-center p-6">
+    <div className="my-12 flex w-full max-w-4xl flex-col items-center p-6">
       <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
-        <div className=" flex size-full h-[180px] flex-col rounded-lg border-2 bg-zinc-600 p-4 ">
-          <Label className="pb-1 text-xl">Enter url</Label>
+        <div className=" flex size-full h-[180px] flex-col rounded-lg border-2 bg-zinc-900 p-4 ">
+          <Label className="pb-2 text-xl">Enter url</Label>
+          <p className="pb-2 text-sm text-zinc-400">
+            Enter the url of the website you want to scrape
+          </p>
           <Input
             value={url}
             onChange={e => setUrl(e.target.value)}
@@ -79,8 +82,12 @@ export default function Dash() {
             style={{ fontSize: "16px" }}
           />
         </div>
-        <div className=" flex h-[180px] w-full flex-col rounded-lg border-2 bg-zinc-600 p-4">
-          <Label className="pb-1 text-xl ">Description (optional)</Label>
+        <div className=" flex h-[180px] w-full flex-col rounded-lg border-2 bg-zinc-900 p-4">
+          <Label className="pb-2 text-xl ">Description (optional)</Label>
+          <p className="pb-2 text-sm text-zinc-400">
+            {" "}
+            Describe the data you want to receive
+          </p>
           <TextareaAutosize
             placeholder={`Improve the accuracy of the scraper by describing the data you want to receive.`}
             value={description}
@@ -96,13 +103,13 @@ export default function Dash() {
       <div className="flex w-full justify-end">
         <Button
           onClick={handleScrapeUrl}
-          className="text-md mt-4 bg-purple-600 px-10 py-3 text-white"
+          className="text-md mt-4 bg-purple-600 px-16 py-3 text-white"
         >
           Scrape
         </Button>
       </div>
-      <div className=" flex w-full flex-col rounded-lg  border-2 bg-zinc-600 p-4 pt-16">
-        <Label className="flex w-full flex-col pb-3 text-3xl ">Results</Label>
+      <div className=" mt-16 flex w-full flex-col  rounded-lg border-2 bg-zinc-900 p-4">
+        <Label className="flex w-full flex-col pb-3 text-2xl ">Results</Label>
         <div className="w-full max-w-3xl flex-col justify-center rounded-md border-2 bg-black p-2">
           {variables?.map((variable: any) => (
             <div
