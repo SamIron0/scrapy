@@ -183,28 +183,22 @@ export default function Dash() {
                   wordBreak: "break-all"
                 }}
               >
-                {Object.keys(results).map((key, index) => (
-                  <div key={index}>
+                {Object.entries(results).map(([key, value]) => (
+                  <div key={key}>
                     <span style={{ color: "blue" }}>{key}</span>:{" "}
-                    {Array.isArray(results[key]) ? (
+                    {typeof value === "object" && value !== null ? (
                       <ul>
-                        {results[key].map(
-                          (item: any, index: Key | null | undefined) => (
-                            <li key={index}>{item}</li>
-                          )
-                        )}
-                      </ul>
-                    ) : typeof results[key] === "object" ? (
-                      <ul>
-                        {Object.keys(results[key]).map((subKey, index) => (
-                          <li key={index}>
+                        {Object.entries(value).map(([subKey, subValue]) => (
+                          <li key={subKey}>
                             <span style={{ color: "blue" }}>{subKey}</span>:{" "}
-                            {results[key][subKey]}
+                            {subValue}
                           </li>
                         ))}
                       </ul>
+                    ) : value !== null && value !== undefined ? (
+                      <span>{value.toString()}</span>
                     ) : (
-                      results[key]
+                      <span>null or undefined</span>
                     )}
                   </div>
                 ))}
