@@ -122,7 +122,7 @@ export default function Dash() {
               className="sr-only"
             />
 
-            <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-gray-800 shadow-card">
+            <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-background shadow-card">
               <span
                 className={`flex size-9 items-center justify-center rounded ${
                   !isChecked ? "bg-white text-purple-600" : "text-body-color"
