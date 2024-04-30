@@ -176,7 +176,7 @@ export default function Dash() {
 
         <div className="w-full max-w-4xl flex-col justify-center rounded-md border border-input bg-black p-2">
           {results &&
-            (isChecked ? (
+            (!isChecked ? (
               <pre
                 className="overflow-x-auto whitespace-pre-wrap p-2"
                 style={{
