@@ -11,7 +11,10 @@ import { createClient } from "@/lib/supabase/client"
 import { Label } from "../ui/label"
 import { TextareaAutosize } from "../ui/textarea-autosize"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import {
+  dark,
+  vscDarkPlus
+} from "react-syntax-highlighter/dist/esm/styles/prism"
 
 interface Props {}
 
@@ -184,7 +187,7 @@ export default function Dash() {
                   wordBreak: "break-all"
                 }}
               >
-                <SyntaxHighlighter language="json" style={dark}>
+                <SyntaxHighlighter language="json" style={vscDarkPlus}>
                   {json}
                 </SyntaxHighlighter>
               </pre>
