@@ -184,12 +184,11 @@ export default function Dash() {
           </label>
         </div>
 
-        <div className="w-full max-w-4xl flex-col justify-center border border-input">
+        <div className="h-[600px] w-full max-w-4xl flex-col justify-center overflow-y-auto ">
           {results ? (
             !isChecked ? (
               <SyntaxHighlighter
-                className="w-full rounded-lg"
-                margin="0"
+                className="w-full rounded-lg border border-input"
                 language="json"
                 style={vscDarkPlus}
               >
