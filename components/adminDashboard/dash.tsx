@@ -16,7 +16,7 @@ interface Props {}
 export default function Dash() {
   const supabase = createClient()
   const [data, setData] = useState({} as any)
-  const [results, setResults] = useState({})
+  const [results, setResults] = useState({} as any)
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState("")
 
@@ -228,7 +228,29 @@ export default function Dash() {
                   wordBreak: "break-all"
                 }}
               >
-                {JSON.stringify(results, null, 2)}
+                {Object.keys(results).map((key, index) => (
+                  <div key={index}>
+                    <span style={{ color: "blue" }}>{key}</span>:{" "}
+                    {Array.isArray(results[key]) ? (
+                      <ul>
+                        {results[key].map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : typeof results[key] === "object" ? (
+                      <ul>
+                        {Object.keys(results[key]).map((subKey, index) => (
+                          <li key={index}>
+                            <span style={{ color: "blue" }}>{subKey}</span>:{" "}
+                            {results[key][subKey]}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      results[key]
+                    )}
+                  </div>
+                ))}
               </pre>
             ) : (
               <div className="py-20"></div>
