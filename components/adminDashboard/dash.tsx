@@ -72,7 +72,7 @@ export default function Dash() {
   return (
     <div className="my-12 flex w-full max-w-4xl flex-col items-center p-6">
       <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
-        <div className=" border-1 flex size-full h-[180px] flex-col rounded-lg border-input bg-background p-4 ">
+        <div className=" border-1 flex size-full h-[180px] flex-col rounded-lg border-zinc-300 bg-background p-4 ">
           <Label className="pb-2 text-xl">Enter url</Label>
           <p className="pb-2 text-sm text-zinc-400">
             Enter the url of the website you want to scrape
@@ -85,7 +85,7 @@ export default function Dash() {
             style={{ fontSize: "16px" }}
           />
         </div>
-        <div className=" border-1 flex h-[180px] w-full flex-col rounded-lg border-input bg-background p-4">
+        <div className=" border-1 flex h-[180px] w-full flex-col rounded-lg border-zinc-300 bg-background p-4">
           <Label className="pb-2 text-xl ">Description (optional)</Label>
           <p className="pb-2 text-sm text-zinc-400">
             {" "}
