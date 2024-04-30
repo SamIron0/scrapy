@@ -119,7 +119,7 @@ export default function Dash() {
         <Button
           disabled={isLoading}
           onClick={handleScrapeUrl}
-          className="text-md mt-4 bg-purple-600 px-16 py-3 text-white"
+          className="text-md mt-4 bg-purple-600 px-16 py-3 text-white hover:bg-purple-600/90"
         >
           Scrape
         </Button>
