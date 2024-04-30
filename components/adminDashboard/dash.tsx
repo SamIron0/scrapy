@@ -125,7 +125,7 @@ export default function Dash() {
             <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-gray-800 shadow-card">
               <span
                 className={`flex size-9 items-center justify-center rounded ${
-                  !isChecked ? "bg-primary text-purple-600" : "text-body-color"
+                  !isChecked ? "bg-purple-600 text-white" : "text-body-color"
                 }`}
               >
                 <svg
@@ -152,7 +152,7 @@ export default function Dash() {
               </span>
               <span
                 className={`flex size-9 items-center justify-center rounded ${
-                  isChecked ? "bg-primary text-primary" : "text-body-color"
+                  isChecked ? "bg-purple-600 text-white" : "text-body-color"
                 }`}
               >
                 <svg
