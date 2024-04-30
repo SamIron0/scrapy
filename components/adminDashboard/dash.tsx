@@ -69,7 +69,7 @@ export default function Dash() {
   return (
     <div className="my-12 flex w-full flex-col items-center p-6">
       <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
-        <div className=" flex size-full h-[180px] flex-col rounded-lg border-2 p-4 ">
+        <div className=" flex size-full h-[180px] flex-col rounded-lg border-2 bg-zinc-600 p-4 ">
           <Label className="pb-1 text-xl">Enter url</Label>
           <Input
             value={url}
@@ -79,7 +79,7 @@ export default function Dash() {
             style={{ fontSize: "16px" }}
           />
         </div>
-        <div className=" flex h-[180px] w-full flex-col rounded-lg border-2 p-4">
+        <div className=" flex h-[180px] w-full flex-col rounded-lg border-2 bg-zinc-600 p-4">
           <Label className="pb-1 text-xl ">Description (optional)</Label>
           <TextareaAutosize
             placeholder={`Improve the accuracy of the scraper by describing the data you want to receive.`}
@@ -101,17 +101,18 @@ export default function Dash() {
           Scrape
         </Button>
       </div>
-
-      <Label className="flex w-full flex-col pt-16 text-3xl ">Results</Label>
-      <div className="w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
-        {variables?.map((variable: any) => (
-          <div
-            key={uuidv4()}
-            className="w-full flex-col justify-center rounded-md border-2 p-2"
-          >
-            {variable}
-          </div>
-        ))}
+      <div className=" flex w-full flex-col rounded-lg  border-2 bg-zinc-600 p-4 pt-16">
+        <Label className="flex w-full flex-col pb-3 text-3xl ">Results</Label>
+        <div className="w-full max-w-3xl flex-col justify-center rounded-md border-2 bg-black p-2">
+          {variables?.map((variable: any) => (
+            <div
+              key={uuidv4()}
+              className="w-full flex-col justify-center rounded-md border-2 p-2"
+            >
+              {variable}
+            </div>
+          ))}
+        </div>
       </div>
       {variables?.length > 0 ? (
         <>
