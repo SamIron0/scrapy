@@ -177,7 +177,15 @@ export default function Dash() {
         <div className="border-1 w-full max-w-4xl flex-col justify-center rounded-md border-zinc-700 bg-black p-2">
           {results &&
             (isChecked ? (
-              <pre className="p-2">{JSON.stringify(results, null, 2)}</pre>
+              <pre
+                className="overflow-x-auto whitespace-pre-wrap p-2"
+                style={{
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "break-all"
+                }}
+              >
+                {JSON.stringify(results, null, 2)}
+              </pre>
             ) : (
               <div className="py-20"></div>
             ))}
