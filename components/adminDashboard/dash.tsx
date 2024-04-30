@@ -10,6 +10,8 @@ import { createClient } from "@/lib/supabase/client"
 
 import { Label } from "../ui/label"
 import { TextareaAutosize } from "../ui/textarea-autosize"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { dark } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 interface Props {}
 
@@ -68,6 +70,7 @@ export default function Dash() {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked)
   }
+  const json = JSON.stringify(results, null, 2)
 
   return (
     <div className="my-12 flex w-full max-w-4xl flex-col items-center p-6">
@@ -181,25 +184,9 @@ export default function Dash() {
                   wordBreak: "break-all"
                 }}
               >
-                {Object.entries(results).map(([key, value]) => (
-                  <div key={key}>
-                    <span style={{ color: "blue" }}>{key}</span>:{" "}
-                    {typeof value === "object" && value !== null ? (
-                      <ul>
-                        {Object.entries(value).map(([subKey, subValue]) => (
-                          <li key={subKey}>
-                            <span style={{ color: "blue" }}>{subKey}</span>:{" "}
-                            {subValue}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : value !== null && value !== undefined ? (
-                      <span>{value.toString()}</span>
-                    ) : (
-                      <span>null or undefined</span>
-                    )}
-                  </div>
-                ))}
+                <SyntaxHighlighter language="json" style={dark}>
+                  {json}
+                </SyntaxHighlighter>
               </pre>
             ) : (
               <div className=""></div>
