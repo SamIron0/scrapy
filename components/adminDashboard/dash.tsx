@@ -177,9 +177,9 @@ export default function Dash() {
           </label>
         </div>
 
-        <div className="w-full max-w-4xl flex-col justify-center rounded-md border border-input">
-          {results &&
-            (!isChecked ? (
+        <div className="w-full max-w-4xl flex-col justify-center border border-input">
+          {results ? (
+            !isChecked ? (
               <pre
                 className="overflow-x-auto whitespace-pre-wrap"
                 style={{
@@ -193,7 +193,20 @@ export default function Dash() {
               </pre>
             ) : (
               <div className="bg-black"></div>
-            ))}
+            )
+          ) : (
+            <div className="flex h-[200px] w-full shrink-0 items-center justify-center rounded-md border border-dashed">
+              <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center py-5 text-center">
+                <span>☕</span>
+                <h3 className="mt-4 text-lg font-semibold">
+                  Nothing to see here
+                </h3>
+                <p className="mb-4 mt-2 text-sm text-muted-foreground">
+                  You data will appear here.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
