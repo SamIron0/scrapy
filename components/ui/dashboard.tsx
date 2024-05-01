@@ -25,8 +25,6 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   const searchParams = useSearchParams()
   const tabValue = searchParams.get("tab") || "presets"
 
-  const { handleSelectDeviceFile } = useSelectFileHandler()
-
   const [contentType, setContentType] = useState<ContentType>(
     tabValue as ContentType
   )
@@ -34,31 +32,6 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
     localStorage.getItem("showSidebar") === "true"
   )
   const [isDragging, setIsDragging] = useState(false)
-
-  const onFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-
-    const files = event.dataTransfer.files
-    const file = files[0]
-
-    handleSelectDeviceFile(file)
-
-    setIsDragging(false)
-  }
-
-  const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setIsDragging(true)
-  }
-
-  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setIsDragging(false)
-  }
-
-  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-  }
 
   const handleToggleSidebar = () => {
     setShowSidebar(prevState => !prevState)
@@ -92,21 +65,8 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
         )}
       </div>
 
-      <div
-        className="relative  flex  w-screen min-w-[90%] grow flex-col overflow-y-hidden bg-muted/50 sm:min-w-fit"
-        onDrop={onFileDrop}
-        onDragOver={onDragOver}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-      >
-        {isDragging ? (
-          <div className="flex h-full items-center justify-center bg-black/50 text-2xl text-white">
-            drop file here
-          </div>
-        ) : (
-          children
-        )}
-
+      <div className="relative  flex  w-screen min-w-[90%] grow flex-col overflow-y-hidden bg-muted/50 sm:min-w-fit">
+        children
         <Button
           className={cn(
             "absolute left-[4px] top-[50%] z-10 size-[32px] cursor-pointer"
