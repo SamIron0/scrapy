@@ -42,19 +42,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { TextareaAutosize } from "../ui/textarea-autosize"
 import { WithTooltip } from "../ui/with-tooltip"
 import { ThemeSwitcher } from "./theme-switcher"
-import { LoginDrawer } from "../login/login-drawer"
-
 interface ProfileSettingsProps {}
 
 export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
-  const {
-    profile,
-    setProfile,
-    envKeyMap,
-    setAvailableHostedModels,
-    setAvailableOpenRouterModels,
-    availableOpenRouterModels
-  } = useContext(ChatbotUIContext)
+  const { profile, setProfile } = useContext(ChatbotUIContext)
 
   const router = useRouter()
 
@@ -128,7 +119,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
 
   const handleSave = async () => {
     if (!profile) return
-    let profileImageUrl = profile.image_url
+    let profileImageUrl = profile?.image_url
     let profileImagePath = ""
 
     if (profileImageFile) {
@@ -137,7 +128,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
       profileImagePath = path
     }
 
-    const updatedProfile = await updateProfile(profile.id, {
+    const updatedProfile = await updateProfile(profile?.id, {
       ...profile,
       display_name: displayName,
       username,
@@ -216,122 +207,115 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
   }
   return (
     <>
-      {profile ? (
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            {profile?.image_url ? (
-              <Image
-                className="mt-2 size-[34px] cursor-pointer rounded hover:opacity-50"
-                src={profile?.image_url + "?" + new Date().getTime()}
-                height={34}
-                width={34}
-                alt={"Image"}
-              />
-            ) : (
-              <Button size="icon" variant="ghost">
-                <IconUser size={SIDEBAR_ICON_SIZE} />
-              </Button>
-            )}
-          </SheetTrigger>
+      {" "}
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <SheetTrigger asChild>
+          {profile?.image_url ? (
+            <Image
+              className="mt-2 size-[34px] cursor-pointer rounded hover:opacity-50"
+              src={profile?.image_url + "?" + new Date().getTime()}
+              height={34}
+              width={34}
+              alt={"Image"}
+            />
+          ) : (
+            <Button size="icon" variant="ghost">
+              <IconUser size={SIDEBAR_ICON_SIZE} />
+            </Button>
+          )}
+        </SheetTrigger>
 
-          <SheetContent
-            className="flex flex-col justify-between"
-            side="left"
-            onKeyDown={handleKeyDown}
-          >
-            <div className="grow overflow-auto">
-              <SheetHeader>
-                <SheetTitle className="flex items-center justify-between space-x-2">
-                  <div>User Settings</div>
+        <SheetContent
+          className="flex flex-col justify-between"
+          side="left"
+          onKeyDown={handleKeyDown}
+        >
+          <div className="grow overflow-auto">
+            <SheetHeader>
+              <SheetTitle className="flex items-center justify-between space-x-2">
+                <div>User Settings</div>
 
-                  <Button
-                    tabIndex={-1}
-                    className="text-xs"
-                    size="sm"
-                    onClick={handleSignOut}
-                  >
-                    <IconLogout className="mr-1" size={20} />
-                    Logout
-                  </Button>
-                </SheetTitle>
-              </SheetHeader>
+                <Button
+                  tabIndex={-1}
+                  className="text-xs"
+                  size="sm"
+                  onClick={handleSignOut}
+                >
+                  <IconLogout className="mr-1" size={20} />
+                  Logout
+                </Button>
+              </SheetTitle>
+            </SheetHeader>
 
-              <Tabs defaultValue="profile">
-                <TabsContent className="mt-4 space-y-4" value="profile">
-                  <div className="space-y-1">
-                    <div className="flex items-center space-x-2">
-                      <Label>Username</Label>
+            <Tabs defaultValue="profile">
+              <TabsContent className="mt-4 space-y-4" value="profile">
+                <div className="space-y-1">
+                  <div className="flex items-center space-x-2">
+                    <Label>Username</Label>
 
-                      <div className="text-xs">
-                        {username !== profile.username ? (
-                          usernameAvailable ? (
-                            <div className="text-green-500">AVAILABLE</div>
-                          ) : (
-                            <div className="text-red-500">UNAVAILABLE</div>
-                          )
-                        ) : null}
-                      </div>
-                    </div>
-
-                    <div className="relative">
-                      <Input
-                        className="pr-10"
-                        placeholder="Username..."
-                        value={username}
-                        onChange={e => {
-                          setUsername(e.target.value)
-                          checkUsernameAvailability(e.target.value)
-                        }}
-                        minLength={PROFILE_USERNAME_MIN}
-                        maxLength={PROFILE_USERNAME_MAX}
-                      />
-
-                      {username !== profile.username ? (
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                          {loadingUsername ? (
-                            <IconLoader2 className="animate-spin" />
-                          ) : usernameAvailable ? (
-                            <IconCircleCheckFilled className="text-green-500" />
-                          ) : (
-                            <IconCircleXFilled className="text-red-500" />
-                          )}
-                        </div>
+                    <div className="text-xs">
+                      {username !== profile?.username ? (
+                        usernameAvailable ? (
+                          <div className="text-green-500">AVAILABLE</div>
+                        ) : (
+                          <div className="text-red-500">UNAVAILABLE</div>
+                        )
                       ) : null}
                     </div>
-
-                    <LimitDisplay
-                      used={username.length}
-                      limit={PROFILE_USERNAME_MAX}
-                    />
                   </div>
-                </TabsContent>
-              </Tabs>
+
+                  <div className="relative">
+                    <Input
+                      className="pr-10"
+                      placeholder="Username..."
+                      value={username}
+                      onChange={e => {
+                        setUsername(e.target.value)
+                        checkUsernameAvailability(e.target.value)
+                      }}
+                      minLength={PROFILE_USERNAME_MIN}
+                      maxLength={PROFILE_USERNAME_MAX}
+                    />
+
+                    {username !== profile?.username ? (
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                        {loadingUsername ? (
+                          <IconLoader2 className="animate-spin" />
+                        ) : usernameAvailable ? (
+                          <IconCircleCheckFilled className="text-green-500" />
+                        ) : (
+                          <IconCircleXFilled className="text-red-500" />
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <LimitDisplay
+                    used={username.length}
+                    limit={PROFILE_USERNAME_MAX}
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          <div className="mt-6 flex items-center">
+            <div className="flex items-center space-x-1">
+              <ThemeSwitcher />
             </div>
 
-            <div className="mt-6 flex items-center">
-              <div className="flex items-center space-x-1">
-                <ThemeSwitcher />
-              </div>
+            <div className="ml-auto space-x-2">
+              <Button variant="ghost" onClick={() => setIsOpen(false)}>
+                Cancel
+              </Button>
 
-              <div className="ml-auto space-x-2">
-                <Button variant="ghost" onClick={() => setIsOpen(false)}>
-                  Cancel
-                </Button>
-
-                <Button ref={buttonRef} onClick={handleSave}>
-                  Save
-                </Button>
-              </div>
+              <Button ref={buttonRef} onClick={handleSave}>
+                Save
+              </Button>
             </div>
-          </SheetContent>
-        </Sheet>
-      ) : (
-        <LoginDrawer>
-          <Button size="icon" variant="ghost">
-            <IconUser size={SIDEBAR_ICON_SIZE} />
-          </Button>
-        </LoginDrawer>
-      )}
+          </div>
+        </SheetContent>
+      </Sheet>
     </>
   )
 }
