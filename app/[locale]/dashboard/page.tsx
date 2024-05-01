@@ -17,18 +17,21 @@ import {
 } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { useRouter } from "next/navigation"
 import { ChatbotUIContext } from "@/context/context"
+import { createOrSaveSchema } from "@/db/schema"
 
 interface Props {}
 
 export default function Dash() {
   const supabase = createClient()
   const { schema } = useContext(ChatbotUIContext)
-  //const [schema, setSchema] = useState<Tables<"schemas"> | null>()
-  const [results, setResults] = useState()
+  const [json, setJson] = useState({} as any)
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState(schema?.url || "")
+  const [uid, setUid] = useState("")
   const router = useRouter()
-
+  const [updatedSchema, setUpdatedSchema] = useState<Tables<"schemas"> | null>(
+    null
+  )
   useEffect(() => {
     async function checkUser() {
       const {
@@ -38,6 +41,7 @@ export default function Dash() {
       if (!session) {
         return router.push("/login")
       }
+      setUid(session.user?.id)
     }
 
     checkUser()
@@ -69,10 +73,16 @@ export default function Dash() {
       const res = await data.json()
 
       console.log(res.body)
-      setResults(res.body)
+      setJson(JSON.stringify(res.body, null, 2))
       toast.dismiss(toastId)
       setIsLoading(false)
 
+      setUpdatedSchema({
+        url,
+        json: res.body,
+        id: schema?.id || uuidv4(),
+        uid
+      })
       toast.success("Done")
     } catch (error) {
       console.log(error)
@@ -86,9 +96,14 @@ export default function Dash() {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked)
   }
-  const json = JSON.stringify(results, null, 2)
 
-  const saveConfig = async () => {}
+  const handleSave = async () => {
+    setIsLoading(true)
+    if (!updatedSchema) return
+    const toastId = toast.loading("Saving...")
+    const res = await createOrSaveSchema(updatedSchema, uid)
+    toast.dismiss(toastId)
+  }
   return (
     <div className="flex w-full flex-col items-center overflow-y-auto p-16">
       <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
@@ -136,7 +151,12 @@ export default function Dash() {
         <div className="flex w-full flex-row items-center justify-between pb-3">
           <Label className="  text-2xl ">Results</Label>
           <div className="flex space-x-2">
-            <Button variant={"outline"} onClick={saveConfig} className="px-4">
+            <Button
+              variant={"outline"}
+              disabled={!schema?.id}
+              onClick={handleSave}
+              className="px-4"
+            >
               Save Configuration
             </Button>
 
@@ -198,7 +218,7 @@ export default function Dash() {
         </div>
 
         <div className="max-h-[600px] w-full max-w-4xl flex-col justify-center overflow-y-auto ">
-          {results ? (
+          {schema ? (
             !isChecked ? (
               <SyntaxHighlighter
                 className="w-full rounded-lg border border-input"
