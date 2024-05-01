@@ -1,5 +1,6 @@
 "use client"
 
+import Navbar from "@/components/ui/Navbar"
 import { createClient } from "@/lib/supabase/client"
 
 export default async function ChatPage() {
@@ -13,5 +14,5 @@ export default async function ChatPage() {
     console.error("Error getting session:", error)
   } else {
   }
-  return <div>Welcome</div>
+  return <Navbar />
 }
