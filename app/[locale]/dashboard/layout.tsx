@@ -37,6 +37,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setLoading(true)
 
     // set api key and schema
+    setLoading(false)
   }
   if (loading) {
     return <Loading />

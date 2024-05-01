@@ -21,5 +21,5 @@ export default async function ChatPage() {
     console.error("Error getting session:", error)
   } else {
   }
-  return <Dash />
+  return <div>Welcome</div>
 }
