@@ -42,7 +42,9 @@ export default function ApiKeys() {
 
   return (
     <div className="flex w-full flex-col items-center overflow-y-auto p-16">
-      API KEYS
+      <p className="text-3xl mb-2">API KEYS</p>
+
+      <div className="w-full rounded-lg border p-4 border-input"></div>
     </div>
   )
 }
