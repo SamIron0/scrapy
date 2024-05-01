@@ -8,7 +8,6 @@ import { cookies } from "next/headers"
 import { ReactNode } from "react"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/react"
-import { Dashboard } from "@/components/ui/dashboard"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"

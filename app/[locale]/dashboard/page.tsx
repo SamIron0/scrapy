@@ -209,7 +209,7 @@ export default function Dash() {
             )
           ) : (
             <div className="flex h-[200px] w-full shrink-0 items-center justify-center rounded-md border border-dashed">
-              <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center py-5 text-center">
+              <div className="mx-auto flex max-w-4xl flex-col items-center justify-center py-5 text-center">
                 <span>🤖</span>
                 <h3 className="mt-4 text-lg font-semibold">
                   Nothing to see here
