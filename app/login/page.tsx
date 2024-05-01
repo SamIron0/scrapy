@@ -78,10 +78,16 @@ export default async function Login({
       return redirect(`/login?message=${error.message}`)
     }
 
-    toast.success("Check your email to verify your account")
+    //toast.success("Successfully created account")
 
-    // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
-    // return redirect("/login?message=Check email to continue sign in process")
+    // login after signup
+
+    const { data } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    return redirect(`/dashboard`)
   }
 
   const handleResetPassword = async (formData: FormData) => {
