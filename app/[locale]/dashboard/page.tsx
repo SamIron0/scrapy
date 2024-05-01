@@ -15,6 +15,7 @@ import {
   dark,
   vscDarkPlus
 } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { useRouter } from "next/navigation"
 
 interface Props {}
 
@@ -24,13 +25,16 @@ export default function Dash() {
   const [results, setResults] = useState()
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState("")
-
+  const router = useRouter()
   useEffect(() => {
     async function checkUser() {
       const {
         data: { user }
       } = await supabase.auth.getUser()
       const session = (await supabase.auth.getSession()).data.session
+      if (session) {
+        return router.push("/login")
+      }
     }
 
     checkUser()
@@ -81,6 +85,7 @@ export default function Dash() {
   }
   const json = JSON.stringify(results, null, 2)
 
+  const saveConfig = async () => {}
   return (
     <div className="flex w-full max-w-4xl flex-col items-center overflow-y-auto p-6">
       <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
@@ -128,7 +133,7 @@ export default function Dash() {
         <div className="flex w-full flex-row items-center justify-between pb-3">
           <Label className="  text-2xl ">Results</Label>
           <div className="flex space-x-2">
-            <Button variant={"outline"} className="px-4">
+            <Button variant={"outline"} onClick={saveConfig} className="px-4">
               Save Configuration
             </Button>
 

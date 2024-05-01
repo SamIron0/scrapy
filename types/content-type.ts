@@ -1,10 +1,1 @@
-export type ContentType =
-  | "chats"
-  | "presets"
-  | "prompts"
-  | "calculator"
-  | "files"
-  | "collections"
-  | "assistants"
-  | "tools"
-  | "models"
+export type ContentType = "schema" | "dash" | "apikeys"

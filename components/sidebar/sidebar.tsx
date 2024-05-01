@@ -6,6 +6,8 @@ import { SIDEBAR_WIDTH } from "../ui/dashboard"
 import { TabsContent } from "../ui/tabs"
 import { WorkspaceSettings } from "../workspace/workspace-settings"
 import { SidebarContent } from "./sidebar-content"
+import api from "gpt-tokenizer/encoding/cl100k_base"
+import { useRouter } from "next/navigation"
 
 interface SidebarProps {
   contentType: ContentType
@@ -13,27 +15,7 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
-  const { folders, chats, presets, calculator } = useContext(ChatbotUIContext)
-
-  const presetFolders = folders.filter(folder => folder.type === "presets")
-  const calculatorFolders = folders.filter(
-    folder => folder.type === "calculator"
-  )
-
-  const renderSidebarContent = (
-    contentType: ContentType,
-    folders: Tables<"folders">[],
-    data?: any[]
-  ) => {
-    return (
-      <SidebarContent
-        contentType={contentType}
-        data={data || []}
-        folders={folders}
-      />
-    )
-  }
-
+  const router = useRouter()
   return (
     <TabsContent
       className="m-0 w-full space-y-2"
@@ -48,12 +30,12 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
       <div className="flex h-full flex-col p-3">
         {(() => {
           switch (contentType) {
-            case "presets":
-              return renderSidebarContent("presets", presetFolders, presets)
-
-            case "calculator":
-              return renderSidebarContent("calculator", calculatorFolders)
-
+            case "schema":
+              router.push("/dashboard/schema")
+            case "apikeys":
+              router.push("/dashboard/apikeys")
+            case "dash":
+              router.push("/dashboard")
             default:
               return null
           }

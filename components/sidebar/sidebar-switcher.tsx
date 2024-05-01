@@ -29,20 +29,15 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
       <TabsList className="grid h-[440px] grid-rows-7 bg-background">
         <SidebarSwitchItem
           icon={<IconAdjustmentsHorizontal size={SIDEBAR_ICON_SIZE} />}
-          contentType="presets"
+          contentType="schema"
           onContentTypeChange={onContentTypeChange}
         />
-        {/*
-        <SidebarSwitchItem
-          icon={<IconMessage size={SIDEBAR_ICON_SIZE} />}
-          contentType="chats"
-          onContentTypeChange={onContentTypeChange}
-        />
+
         <SidebarSwitchItem
           icon={<IconCalculator size={SIDEBAR_ICON_SIZE} />}
-          contentType="calculator"
+          contentType="apikeys"
           onContentTypeChange={onContentTypeChange}
-  />*/}
+        />
       </TabsList>
 
       <div className="flex flex-col items-center space-y-4">
