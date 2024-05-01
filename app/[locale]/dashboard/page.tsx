@@ -24,7 +24,7 @@ interface Props {}
 export default function Dash() {
   const supabase = createClient()
   const { schema } = useContext(ChatbotUIContext)
-  const [json, setJson] = useState({} as any)
+  const [json, setJson] = useState(schema?.json || "")
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState(schema?.url || "")
   const [uid, setUid] = useState("")

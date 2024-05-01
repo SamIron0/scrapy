@@ -22,10 +22,8 @@ interface Props {}
 
 export default function ApiKeys() {
   const supabase = createClient()
-  const [data, setData] = useState({} as any)
   const { apikeys, schema } = useContext(ChatbotUIContext)
-  const [description, setDescription] = useState("")
-  const [url, setUrl] = useState("")
+
   const router = useRouter()
   useEffect(() => {
     async function checkUser() {
