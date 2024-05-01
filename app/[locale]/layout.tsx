@@ -1,5 +1,4 @@
 import { Toaster } from "@/components/ui/sonner"
-import { GlobalState } from "@/components/utility/global-state"
 import { Providers } from "@/components/utility/providers"
 import { Database } from "@/supabase/types"
 import { createServerClient } from "@supabase/ssr"

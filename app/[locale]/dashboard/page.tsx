@@ -87,7 +87,7 @@ export default function Dash() {
 
   const saveConfig = async () => {}
   return (
-    <div className="flex w-full max-w-4xl flex-col items-center overflow-y-auto p-6">
+    <div className="flex w-full flex-col items-center overflow-y-auto p-16">
       <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
         <div className=" flex size-full h-[180px] flex-col rounded-lg border border-input bg-background p-4 ">
           <Label className="pb-2 text-xl">Enter url</Label>
