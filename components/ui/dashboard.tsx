@@ -66,7 +66,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
       </div>
 
       <div className="relative  flex  w-screen min-w-[90%] grow flex-col overflow-y-hidden bg-muted/50 sm:min-w-fit">
-        children
+        {children}
         <Button
           className={cn(
             "absolute left-[4px] top-[50%] z-10 size-[32px] cursor-pointer"
