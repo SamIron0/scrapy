@@ -53,8 +53,8 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
             onValueChange={tabValue => {
               setContentType(tabValue as ContentType)
               tabValue === "Dash"
-                ? router.push("/")
-                : tabValue === "API Keys" && router.push("/apikeys")
+                ? router.push("/dashboard")
+                : tabValue === "API Keys" && router.push("/dashboard/apikeys")
             }}
           >
             <SidebarSwitcher onContentTypeChange={setContentType} />
