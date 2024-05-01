@@ -32,7 +32,7 @@ export default function Dash() {
         data: { user }
       } = await supabase.auth.getUser()
       const session = (await supabase.auth.getSession()).data.session
-      if (session) {
+      if (!session) {
         return router.push("/login")
       }
     }
