@@ -1,5 +1,5 @@
 "use client"
-import { Key, useEffect, useState } from "react"
+import { Key, useContext, useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
@@ -16,13 +16,14 @@ import {
   vscDarkPlus
 } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { useRouter } from "next/navigation"
+import { ChatbotUIContext } from "@/context/context"
 
 interface Props {}
 
 export default function ApiKeys() {
   const supabase = createClient()
   const [data, setData] = useState({} as any)
-  const [results, setResults] = useState()
+  const { apikeys } = useContext(ChatbotUIContext)
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState("")
   const router = useRouter()
@@ -42,9 +43,15 @@ export default function ApiKeys() {
 
   return (
     <div className="flex w-full flex-col items-center overflow-y-auto p-16">
-      <p className="text-3xl mb-2">API KEYS</p>
+      <p className="mb-2 text-3xl">API KEYS</p>
 
-      <div className="w-full rounded-lg border p-4 border-input"></div>
+      <div className="flex w-full flex-row rounded-lg border border-input p-4">
+        <p className=" ">Name</p>
+        <p className="ml-2">{apikeys?.id}</p>
+        <Button size={"sm"} className="ml-auto">
+          copy
+        </Button>
+      </div>
     </div>
   )
 }
