@@ -50,7 +50,7 @@ export default async function Login({
     })
 
     if (error) {
-      return redirect(`/login?message=${error.message}`)
+      return toast.error(error.message)
     }
     return redirect(`/dashboard`)
   }
@@ -75,19 +75,13 @@ export default async function Login({
 
     if (error) {
       console.error(error)
-      return redirect(`/login?message=${error.message}`)
+      return toast.error(error.message)
     }
 
-    //toast.success("Successfully created account")
+    toast.success("Check your email to verify your account")
 
     // login after signup
-
-    const { data } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    })
-
-    return redirect(`/dashboard`)
+    return
   }
 
   const handleResetPassword = async (formData: FormData) => {
