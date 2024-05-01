@@ -5,7 +5,7 @@ export const getSchemaByUserId = async (userId: string) => {
   const { data: schema, error } = await supabase
     .from("schemas")
     .select("*")
-    .eq("user_id", userId)
+    .eq("uid", userId)
 
   if (error) {
     throw new Error(error.message)
