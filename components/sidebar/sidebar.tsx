@@ -4,9 +4,6 @@ import { ContentType } from "@/types"
 import { FC, useContext } from "react"
 import { SIDEBAR_WIDTH } from "../ui/dashboard"
 import { TabsContent } from "../ui/tabs"
-import { WorkspaceSettings } from "../workspace/workspace-settings"
-import { SidebarContent } from "./sidebar-content"
-import api from "gpt-tokenizer/encoding/cl100k_base"
 import { useRouter } from "next/navigation"
 
 interface SidebarProps {
