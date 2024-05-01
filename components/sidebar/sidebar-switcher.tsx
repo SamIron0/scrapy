@@ -30,7 +30,7 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
 
         <SidebarSwitchItem
           icon={<IconKey size={SIDEBAR_ICON_SIZE} />}
-          contentType="API Keys"
+          contentType="Keys"
           onContentTypeChange={onContentTypeChange}
         />
       </TabsList>

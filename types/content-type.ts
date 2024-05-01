@@ -1,1 +1,1 @@
-export type ContentType = "Dash" | "API Keys"
+export type ContentType = "Dash" | "Keys"

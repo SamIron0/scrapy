@@ -29,8 +29,8 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
           switch (contentType) {
             case "Dash":
               router.push("/")
-            case "API Keys":
-              router.push("/apikeys")
+            case "Keys":
+              router.push("/keys")
             default:
               return null
           }
