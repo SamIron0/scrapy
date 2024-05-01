@@ -1,9 +1,9 @@
 "use client"
-import { Key, useEffect, useState } from "react"
+import { Key, useContext, useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
-import { TablesInsert } from "@/supabase/types"
+import { Tables, TablesInsert } from "@/supabase/types"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
@@ -16,16 +16,19 @@ import {
   vscDarkPlus
 } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { useRouter } from "next/navigation"
+import { ChatbotUIContext } from "@/context/context"
 
 interface Props {}
 
 export default function Dash() {
   const supabase = createClient()
-  const [data, setData] = useState({} as any)
+  const { schema } = useContext(ChatbotUIContext)
+  //const [schema, setSchema] = useState<Tables<"schemas"> | null>()
   const [results, setResults] = useState()
   const [description, setDescription] = useState("")
-  const [url, setUrl] = useState("")
+  const [url, setUrl] = useState(schema?.url || "")
   const router = useRouter()
+
   useEffect(() => {
     async function checkUser() {
       const {

@@ -7,6 +7,7 @@ import { LLMID } from "@/types"
 import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
+import { getSchemaByUserId } from "@/db/schema"
 
 interface WorkspaceLayoutProps {
   children: ReactNode
@@ -18,23 +19,26 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const params = useParams()
   const workspaceId = params.workspaceid as string
 
-  const {} = useContext(ChatbotUIContext)
+  const { setSchema } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
+
+  //get user schema
 
   useEffect(() => {
     ;(async () => {
       const session = (await supabase.auth.getSession()).data.session
 
-      if (session) {
+      if (!session) {
         return router.push("/login")
       } else {
-        await fetchWorkspaceData(workspaceId)
+        await fetchDashboardData(session.user.id)
       }
     })()
   }, [])
-  const fetchWorkspaceData = async (workspaceId: string) => {
+  const fetchDashboardData = async (id: string) => {
     setLoading(true)
+    const schema = getSchemaByUserId(id)
 
     // set api key and schema
     setLoading(false)
