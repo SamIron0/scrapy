@@ -9,8 +9,6 @@ import { updateProfile } from "@/db/profile"
 import { uploadProfileImage } from "@/db/storage/profile-images"
 import { exportLocalStorageAsJSON } from "@/lib/export-old-data"
 import { supabase } from "@/lib/supabase/browser-client"
-import { cn } from "@/lib/utils"
-import { OpenRouterLLM } from "@/types"
 import {
   IconCircleCheckFilled,
   IconCircleXFilled,
