@@ -13,19 +13,42 @@ export const getSchemaByUserId = async (userId: string) => {
 
   return profile
 }
-
 export const createOrSaveSchema = async (
   schema: TablesInsert<"schemas">,
   uid: string
 ) => {
-  const { data: updatedSchema, error } = await supabase
+  const { data: existingSchema, error } = await supabase
     .from("schemas")
     .select("*")
     .eq("uid", uid)
+    .single()
 
   if (error) {
     throw new Error(error.message)
   }
 
-  return updatedSchema
+  if (existingSchema) {
+    // Update the schema if it exists
+    const { data, error } = await supabase
+      .from("schemas")
+      .update({ ...schema })
+      .eq("uid", uid)
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    return data
+  } else {
+    // Create the schema if it doesn't exist
+    const { data, error } = await supabase
+      .from("schemas")
+      .insert({ ...schema, uid })
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    return data
+  }
 }
