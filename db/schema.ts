@@ -2,16 +2,16 @@ import { supabase } from "@/lib/supabase/browser-client"
 import { TablesInsert, TablesUpdate } from "@/supabase/types"
 
 export const getSchemaByUserId = async (userId: string) => {
-  const { data: profile, error } = await supabase
+  const { data: schema, error } = await supabase
     .from("schemas")
     .select("*")
     .eq("user_id", userId)
 
-  if (!profile) {
+  if (error) {
     throw new Error(error.message)
   }
 
-  return profile
+  return schema
 }
 export const createOrSaveSchema = async (
   schema: TablesInsert<"schemas">,
