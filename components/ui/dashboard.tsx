@@ -42,14 +42,9 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
     <div className="flex size-full h-screen overflow-y-hidden">
       <div
         className={cn(
-          "duration-200 dark:border-none " + (showSidebar ? "border-r-2" : "")
+          "duration-200 dark:border-none " +
+            (showSidebar ? "border-r-1 border-input" : "")
         )}
-        style={{
-          // Sidebar
-          minWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-          maxWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-          width: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px"
-        }}
       >
         {showSidebar && (
           <Tabs
@@ -65,7 +60,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
         )}
       </div>
 
-      <div className="relative  flex  w-screen min-w-[90%] grow flex-col overflow-y-hidden bg-muted/50 sm:min-w-fit">
+      <div className="relative flex w-screen  min-w-[90%] grow flex-col items-center overflow-y-hidden bg-muted/50 sm:min-w-fit">
         {children}
         <Button
           className={cn(
