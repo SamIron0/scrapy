@@ -106,7 +106,11 @@ export default async function RootLayout({
         <Providers attribute="class" defaultTheme="dark">
           <Toaster richColors position="top-center" duration={3000} />
           <div className="flex flex-col items-center overflow-x-hidden bg-black text-foreground">
-            {children}
+            {!session?.user ? (
+              <Dashboard> {children} </Dashboard>
+            ) : (
+              <> {children}</>
+            )}
           </div>
           <Analytics />
         </Providers>
