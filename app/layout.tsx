@@ -64,10 +64,7 @@ export const viewport: Viewport = {
 
 const i18nNamespaces = ["translation"]
 
-export default async function RootLayout({
-  children,
-  params: { locale }
-}: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
   const cookieStore = cookies()
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
