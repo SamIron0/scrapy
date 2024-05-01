@@ -14,20 +14,18 @@ export const getSchemaByUserId = async (userId: string) => {
   return profile
 }
 
-export const updateSchema = async (
-  schemaId: string,
-  schema: TablesUpdate<"schemas">
+export const createOrSaveSchema = async (
+  schema: TablesInsert<"schemas">,
+  uid: string
 ) => {
-  const { data: updatedProfile, error } = await supabase
+  const { data: updatedSchema, error } = await supabase
     .from("schemas")
-    .update(schema)
-    .eq("id", schemaId)
     .select("*")
-    .single()
+    .eq("uid", uid)
 
   if (error) {
     throw new Error(error.message)
   }
 
-  return updatedProfile
+  return updatedSchema
 }

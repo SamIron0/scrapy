@@ -1,13 +1,8 @@
 import { ContentType } from "@/types"
 import {
   IconAdjustmentsHorizontal,
-  IconBolt,
-  IconBooks,
-  IconFile,
-  IconMessage,
-  IconCalculator,
-  IconRobotFace,
-  IconSparkles
+  IconKey,
+  IconDashboard
 } from "@tabler/icons-react"
 import { FC } from "react"
 import { TabsList } from "../ui/tabs"
@@ -28,13 +23,13 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
     <div className="flex flex-col justify-between border-r-2 pb-5">
       <TabsList className="grid h-[440px] grid-rows-7 bg-background">
         <SidebarSwitchItem
-          icon={<IconAdjustmentsHorizontal size={SIDEBAR_ICON_SIZE} />}
-          contentType="schema"
+          icon={<IconDashboard size={SIDEBAR_ICON_SIZE} />}
+          contentType="dash"
           onContentTypeChange={onContentTypeChange}
         />
 
         <SidebarSwitchItem
-          icon={<IconCalculator size={SIDEBAR_ICON_SIZE} />}
+          icon={<IconKey size={SIDEBAR_ICON_SIZE} />}
           contentType="apikeys"
           onContentTypeChange={onContentTypeChange}
         />

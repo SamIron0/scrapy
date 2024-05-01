@@ -27,12 +27,10 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
       <div className="flex h-full flex-col p-3">
         {(() => {
           switch (contentType) {
-            case "schema":
-              router.push("/dashboard/schema")
-            case "apikeys":
-              router.push("/dashboard/apikeys")
             case "dash":
               router.push("/dashboard")
+            case "apikeys":
+              router.push("/apikeys")
             default:
               return null
           }

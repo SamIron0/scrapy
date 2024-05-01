@@ -23,8 +23,10 @@ export const SidebarSwitchItem: FC<SidebarSwitchItemProps> = ({
         <TabsTrigger
           value={contentType}
           onClick={() => onContentTypeChange(contentType as ContentType)}
+          className="flex items-center justify-center pr-1"
         >
           {icon}
+          <p className="text-sm">{contentType}</p>
         </TabsTrigger>
       }
     />
