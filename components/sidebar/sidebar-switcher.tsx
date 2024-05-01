@@ -24,13 +24,13 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
       <TabsList className="grid h-[440px] grid-rows-7 bg-background">
         <SidebarSwitchItem
           icon={<IconDashboard size={SIDEBAR_ICON_SIZE} />}
-          contentType="dash"
+          contentType="Dash"
           onContentTypeChange={onContentTypeChange}
         />
 
         <SidebarSwitchItem
           icon={<IconKey size={SIDEBAR_ICON_SIZE} />}
-          contentType="apikeys"
+          contentType="API Keys"
           onContentTypeChange={onContentTypeChange}
         />
       </TabsList>
