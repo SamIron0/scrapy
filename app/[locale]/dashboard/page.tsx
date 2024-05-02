@@ -105,7 +105,7 @@ export default function Dash() {
   }
   return (
     <div className="flex w-full flex-col items-center overflow-y-auto">
-      <div className="flex w-full max-w-4xl flex-col p-6 sm:p-16">
+      <div className="mt-10 flex w-full max-w-4xl flex-col p-6 sm:mt-0 sm:p-16">
         <div className=" flex h-[180px] w-full flex-col rounded-lg border border-input bg-background p-4 ">
           <Label className="pb-2 text-xl">Enter url</Label>
           <p className="pb-2 text-sm text-zinc-400">
