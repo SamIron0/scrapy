@@ -80,7 +80,7 @@ export default function Dash() {
       setUpdatedSchema({
         url,
         json: res.body,
-        id: schema?.id || uuidv4(),
+        id: uuidv4(),
         uid
       })
       toast.success("Done")
