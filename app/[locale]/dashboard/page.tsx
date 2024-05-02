@@ -72,7 +72,6 @@ export default function Dash() {
 
       console.log(res.body)
       toast.dismiss(toastId)
-      setIsLoading(false)
 
       setSchema({
         url,
@@ -81,12 +80,13 @@ export default function Dash() {
         uid
       })
       toast.success("Done")
+      console.log("z", schema)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
       toast.dismiss(toastId)
       toast.error("Error scraping data in catch")
     }
-    toast.dismiss(toastId)
   }
   const [isChecked, setIsChecked] = useState(false)
 
