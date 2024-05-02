@@ -21,13 +21,13 @@ export const createOrSaveSchema = async (
     .from("schemas")
     .select("*")
     .eq("uid", uid)
-    .single()
 
   if (error) {
     throw new Error(error.message)
   }
 
-  if (existingSchema) {
+  if (existingSchema[0]) {
+    console.log("updating schema")
     // Update the schema if it exists
     const { data, error } = await supabase
       .from("schemas")
@@ -40,6 +40,7 @@ export const createOrSaveSchema = async (
 
     return data
   } else {
+    console.log("creating schema")
     // Create the schema if it doesn't exist
     const { data, error } = await supabase
       .from("schemas")
