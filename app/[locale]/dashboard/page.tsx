@@ -23,14 +23,12 @@ interface Props {}
 
 export default function Dash() {
   const supabase = createClient()
-  const { schema } = useContext(ChatbotUIContext)
+  const { schema, setSchema } = useContext(ChatbotUIContext)
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState(schema?.url || "")
   const [uid, setUid] = useState("")
   const router = useRouter()
-  const [updatedSchema, setUpdatedSchema] = useState<Tables<"schemas"> | null>(
-    schema
-  )
+
   useEffect(() => {
     async function checkUser() {
       const {
@@ -76,7 +74,7 @@ export default function Dash() {
       toast.dismiss(toastId)
       setIsLoading(false)
 
-      setUpdatedSchema({
+      setSchema({
         url,
         json: JSON.stringify(res.body, null, 2),
         id: uuidv4(),
@@ -98,9 +96,9 @@ export default function Dash() {
 
   const handleSave = async () => {
     setIsLoading(true)
-    if (!updatedSchema) return
+    if (!schema) return
     const toastId = toast.loading("Saving...")
-    const res = await createOrSaveSchema(updatedSchema, uid)
+    const res = await createOrSaveSchema(schema, uid)
     toast.dismiss(toastId)
     toast.success("Saved")
     setIsLoading(false)
@@ -219,14 +217,14 @@ export default function Dash() {
         </div>
 
         <div className="max-h-[600px] w-full max-w-4xl flex-col justify-center overflow-y-auto ">
-          {updatedSchema?.json ? (
+          {schema?.json ? (
             !isChecked ? (
               <SyntaxHighlighter
                 className="w-full rounded-lg border border-input"
                 language="json"
                 style={vscDarkPlus}
               >
-                {updatedSchema.json}
+                {schema?.json}
               </SyntaxHighlighter>
             ) : (
               <div className="bg-black"></div>
