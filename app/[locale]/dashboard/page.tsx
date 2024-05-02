@@ -131,14 +131,14 @@ export default function Dash() {
         <div className=" mt-16 flex w-full flex-col items-center rounded-lg  border border-input bg-background p-4">
           <div className="flex w-full flex-row items-center justify-between pb-3">
             <Label className="  text-2xl ">Results</Label>
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-2">
               <Button
                 variant={"outline"}
                 disabled={!schema?.id}
                 onClick={handleSave}
                 className="px-4"
               >
-                Save Configuration
+                Save
               </Button>
 
               <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center">
@@ -149,7 +149,7 @@ export default function Dash() {
                   className="sr-only"
                 />
 
-                <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-black shadow-card">
+                <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-background shadow-card">
                   <span
                     className={`flex size-9 items-center justify-center rounded ${
                       !isChecked
@@ -211,7 +211,7 @@ export default function Dash() {
                   {schema?.json}
                 </SyntaxHighlighter>
               ) : (
-                <div className="bg-black"></div>
+                <div className="bg-background"></div>
               )
             ) : (
               <div className="flex h-[200px] w-full shrink-0 items-center justify-center rounded-md border border-dashed">
