@@ -72,10 +72,11 @@ export default function Dash() {
 
       console.log(res.body)
       toast.dismiss(toastId)
-
+      const resToJson = JSON.stringify(res.body, null, 2)
+      const json = Object.keys(resToJson)
       setSchema({
         url,
-        json: JSON.stringify(res.body, null, 2),
+        json: json,
         id: uuidv4(),
         uid
       })
