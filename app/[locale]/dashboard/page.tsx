@@ -104,38 +104,19 @@ export default function Dash() {
     setIsLoading(false)
   }
   return (
-    <div className="flex w-full flex-col items-center overflow-y-auto p-16">
-      <div className="w-full items-center   space-y-4 md:flex md:space-x-4   md:space-y-0 ">
-        <div className=" flex size-full h-[180px] flex-col rounded-lg border border-input bg-background p-4 ">
-          <Label className="pb-2 text-xl">Enter url</Label>
-          <p className="pb-2 text-sm text-zinc-400">
-            Enter the url of the website you want to scrape
-          </p>
-          <Input
-            value={url}
-            onChange={e => setUrl(e.target.value)}
-            className="w-full max-w-2xl"
-            placeholder={"https://example.com"}
-            style={{ fontSize: "16px" }}
-          />
-        </div>
-        <div className=" flex h-[180px] w-full flex-col rounded-lg border border-input bg-background p-4">
-          <Label className="pb-2 text-xl ">Description (optional)</Label>
-          <p className="pb-2 text-sm text-zinc-400">
-            {" "}
-            Describe the data you want to receive
-          </p>
-          <TextareaAutosize
-            placeholder={`Reviews and prices.`}
-            value={description}
-            onValueChange={value => {
-              setDescription(value)
-            }}
-            minRows={3}
-            maxRows={5}
-            className="w-full text-[16px]"
-          />{" "}
-        </div>
+    <div className="flex w-full max-w-4xl flex-col items-center overflow-y-auto p-16">
+      <div className=" flex h-[180px] w-full flex-col rounded-lg border border-input bg-background p-4 ">
+        <Label className="pb-2 text-xl">Enter url</Label>
+        <p className="pb-2 text-sm text-zinc-400">
+          Enter the url of the website you want to scrape
+        </p>
+        <Input
+          value={url}
+          onChange={e => setUrl(e.target.value)}
+          className="w-full max-w-2xl"
+          placeholder={"https://example.com"}
+          style={{ fontSize: "16px" }}
+        />
       </div>
       <div className="flex w-full justify-end">
         <Button
@@ -216,7 +197,7 @@ export default function Dash() {
           </div>
         </div>
 
-        <div className="max-h-[600px] w-full max-w-4xl flex-col justify-center overflow-y-auto ">
+        <div className="max-h-[600px] w-full flex-col justify-center overflow-y-auto ">
           {schema?.json ? (
             !isChecked ? (
               <SyntaxHighlighter
