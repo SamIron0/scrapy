@@ -1,14 +1,14 @@
+"use client"
 import { Toaster } from "@/components/ui/sonner"
 import { Providers } from "@/components/utility/providers"
-import { Database } from "@/supabase/types"
-import { createServerClient } from "@supabase/ssr"
 import { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
-import { cookies } from "next/headers"
-import { ReactNode } from "react"
+import { ReactNode, useContext } from "react"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/react"
-import { Dashboard } from "@/components/ui/dashboard"
+import { supabase } from "@/lib/supabase/browser-client"
+import { getApiKeysByUserId } from "@/db/apikeys"
+import { ChatbotUIContext } from "@/context/context"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"
@@ -69,19 +69,13 @@ export default async function RootLayout({
   children,
   params: { locale }
 }: RootLayoutProps) {
-  const cookieStore = cookies()
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        }
-      }
-    }
-  )
+  const { setApikeys } = useContext(ChatbotUIContext)
   const session = (await supabase.auth.getSession()).data.session
+  if (session) {
+    const apikeys = await getApiKeysByUserId(session?.user.id)
+    setApikeys(apikeys)
+    console.log("d", apikeys)
+  }
 
   return (
     <html lang="en" suppressHydrationWarning>

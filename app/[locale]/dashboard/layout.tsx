@@ -31,7 +31,6 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
         return router.push("/login")
       } else {
         await fetchDashboardData(session.user.id)
-        console.log(apikeys)
       }
     })()
   }, [])
