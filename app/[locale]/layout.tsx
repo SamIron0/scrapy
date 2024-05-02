@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { Providers } from "@/components/utility/providers"
 import { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
-import { ReactNode, useContext } from "react"
+import { ReactNode, useContext, useEffect } from "react"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/react"
 import { supabase } from "@/lib/supabase/browser-client"
@@ -40,6 +40,10 @@ export default async function RootLayout({
     setApikeys(apik)
     console.log("d", apikeys)
   }
+
+  useEffect(() => {
+    console.log("d", apikeys) // will log the updated apikeys state
+  }, [apikeys]) // dependency on apikeys state
 
   return (
     <html lang="en" suppressHydrationWarning>
