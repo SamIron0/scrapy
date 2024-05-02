@@ -70,16 +70,15 @@ export default function Dash() {
       )
       const res = await data.json()
 
-      console.log(res.body)
+      console.log()
       toast.dismiss(toastId)
-      const resToJson = JSON.stringify(res.body, null, 2)
-      const json = Object.keys(resToJson)
       setSchema({
         url,
-        json: json,
+        json: JSON.stringify(res.body, null, 2),
         id: uuidv4(),
         uid
       })
+
       toast.success("Done")
       console.log("z", schema)
       setIsLoading(false)
