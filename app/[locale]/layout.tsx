@@ -33,11 +33,11 @@ export default async function RootLayout({
   children,
   params: { locale }
 }: RootLayoutProps) {
-  const { setApikeys } = useContext(ChatbotUIContext)
+  const { setApikeys, apikeys } = useContext(ChatbotUIContext)
   const session = (await supabase.auth.getSession()).data.session
   if (session) {
-    const apikeys = await getApiKeysByUserId(session?.user.id)
-    setApikeys(apikeys)
+    const apik = await getApiKeysByUserId(session?.user.id)
+    setApikeys(apik)
     console.log("d", apikeys)
   }
 
