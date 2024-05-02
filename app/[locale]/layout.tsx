@@ -105,7 +105,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <Providers attribute="class" defaultTheme="dark">
           <Toaster richColors position="top-center" duration={3000} />
-          <div className="flex flex-col items-center overflow-x-hidden text-foreground">
+          <div className="flex h-dvh flex-col items-center overflow-x-auto bg-background text-foreground">
             {session ? <GlobalState>{children}</GlobalState> : children}
           </div>
           <Analytics />
