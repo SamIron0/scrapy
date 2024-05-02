@@ -103,6 +103,8 @@ export default function Dash() {
     const toastId = toast.loading("Saving...")
     const res = await createOrSaveSchema(updatedSchema, uid)
     toast.dismiss(toastId)
+    toast.success("Saved")
+    setIsLoading(false)
   }
   return (
     <div className="flex w-full flex-col items-center overflow-y-auto p-16">
