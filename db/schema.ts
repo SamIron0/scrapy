@@ -11,7 +11,7 @@ export const getSchemaByUserId = async (userId: string) => {
     throw new Error(error.message)
   }
 
-  return schema
+  return schema[0]
 }
 export const createOrSaveSchema = async (
   schema: TablesInsert<"schemas">,
