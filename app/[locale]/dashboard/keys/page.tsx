@@ -1,20 +1,9 @@
 "use client"
-import { Key, useContext, useEffect, useState } from "react"
-import { Input } from "@/components/ui/input"
+import { useContext, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import axios from "axios"
-import { TablesInsert } from "@/supabase/types"
-import { v4 as uuidv4 } from "uuid"
-import { toast } from "sonner"
+
 import { createClient } from "@/lib/supabase/client"
 
-import { Label } from "@/components/ui/label"
-import { TextareaAutosize } from "@/components/ui/textarea-autosize"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import {
-  dark,
-  vscDarkPlus
-} from "react-syntax-highlighter/dist/esm/styles/prism"
 import { useRouter } from "next/navigation"
 import { ChatbotUIContext } from "@/context/context"
 

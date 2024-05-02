@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
 import { getSchemaByUserId } from "@/db/schema"
+import { getApiKeysByUserId } from "@/db/apikeys"
 
 interface WorkspaceLayoutProps {
   children: ReactNode
@@ -19,7 +20,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const params = useParams()
   const workspaceId = params.workspaceid as string
 
-  const { setSchema } = useContext(ChatbotUIContext)
+  const { setSchema, setApikeys } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
 
@@ -38,8 +39,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   }, [])
   const fetchDashboardData = async (id: string) => {
     setLoading(true)
-    const schema = getSchemaByUserId(id)
-
+    setSchema(await getSchemaByUserId(id))
+    setApikeys(await getApiKeysByUserId(id))
     // set api key and schema
     setLoading(false)
   }
