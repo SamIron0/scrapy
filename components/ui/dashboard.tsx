@@ -39,7 +39,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   }
 
   return (
-    <div className="flex size-full h-screen overflow-y-hidden">
+    <div className="flex size-full">
       <div
         className={cn(
           "duration-200 dark:border-none " +
