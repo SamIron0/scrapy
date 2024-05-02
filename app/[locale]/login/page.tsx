@@ -50,7 +50,7 @@ export default async function Login({
     })
 
     if (error) {
-      return toast.error(error.message)
+      return redirect(`/login?message=${error.message}`)
     }
     return redirect(`/dashboard`)
   }
@@ -75,10 +75,10 @@ export default async function Login({
 
     if (error) {
       console.error(error)
-      return toast.error(error.message)
+      return redirect(`/login?message=${error.message}`)
     }
 
-    toast.success("Check your email to verify your account")
+    return redirect("/login?message=Check email to verify account")
 
     // login after signup
     return
