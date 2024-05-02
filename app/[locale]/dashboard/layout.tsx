@@ -36,7 +36,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   }, [])
   const fetchDashboardData = async (id: string) => {
     setLoading(true)
-    setSchema(await getSchemaByUserId(id))
+    const schema = await getSchemaByUserId(id)
+    setSchema(schema)
     const apikeys = await getApiKeysByUserId(id)
     setApikeys(apikeys)
     // set api key and schema
