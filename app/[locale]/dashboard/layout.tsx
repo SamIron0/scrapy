@@ -17,10 +17,7 @@ interface WorkspaceLayoutProps {
 export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const router = useRouter()
 
-  const params = useParams()
-  const workspaceId = params.workspaceid as string
-
-  const { setSchema, setApikeys } = useContext(ChatbotUIContext)
+  const { setSchema, setApikeys, apikeys } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
 
@@ -34,6 +31,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
         return router.push("/login")
       } else {
         await fetchDashboardData(session.user.id)
+        console.log(apikeys)
       }
     })()
   }, [])
