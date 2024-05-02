@@ -24,13 +24,12 @@ interface Props {}
 export default function Dash() {
   const supabase = createClient()
   const { schema } = useContext(ChatbotUIContext)
-  const [json, setJson] = useState(schema?.json || "")
   const [description, setDescription] = useState("")
   const [url, setUrl] = useState(schema?.url || "")
   const [uid, setUid] = useState("")
   const router = useRouter()
   const [updatedSchema, setUpdatedSchema] = useState<Tables<"schemas"> | null>(
-    null
+    schema
   )
   useEffect(() => {
     async function checkUser() {
@@ -74,13 +73,12 @@ export default function Dash() {
       const res = await data.json()
 
       console.log(res.body)
-      setJson(JSON.stringify(res.body, null, 2))
       toast.dismiss(toastId)
       setIsLoading(false)
 
       setUpdatedSchema({
         url,
-        json: res.body,
+        json: JSON.stringify(res.body, null, 2),
         id: uuidv4(),
         uid
       })
@@ -221,14 +219,14 @@ export default function Dash() {
         </div>
 
         <div className="max-h-[600px] w-full max-w-4xl flex-col justify-center overflow-y-auto ">
-          {schema ? (
+          {updatedSchema?.json ? (
             !isChecked ? (
               <SyntaxHighlighter
                 className="w-full rounded-lg border border-input"
                 language="json"
                 style={vscDarkPlus}
               >
-                {json}
+                {updatedSchema.json}
               </SyntaxHighlighter>
             ) : (
               <div className="bg-black"></div>
