@@ -120,6 +120,23 @@ export default function Dash() {
             style={{ fontSize: "16px" }}
           />
         </div>
+        <div className=" flex h-[180px] w-full flex-col rounded-lg border border-input bg-background p-4">
+          <Label className="pb-2 text-xl ">Description (optional)</Label>
+          <p className="pb-2 text-sm text-zinc-400">
+            {" "}
+            Describe the data you want to receive
+          </p>
+          <TextareaAutosize
+            placeholder={`Reviews and prices.`}
+            value={description}
+            onValueChange={value => {
+              setDescription(value)
+            }}
+            minRows={3}
+            maxRows={5}
+            className="w-full text-[16px]"
+          />{" "}
+        </div>
         <div className="flex w-full justify-end">
           <Button
             disabled={isLoading}
