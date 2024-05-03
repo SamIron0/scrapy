@@ -113,14 +113,23 @@ export default function Dash() {
   }
 
   const handleSave = async () => {
-    setIsLoading(true)
     if (!schema?.json) return
     const toastId = toast.loading("Saving...")
-    const nulledSchema = replaceInnermostValuesWithNull(JSON.parse(schema.json))
-    const res = await createOrSaveSchema(nulledSchema, uid)
-    toast.dismiss(toastId)
-    toast.success("Saved")
-    setIsLoading(false)
+    setIsLoading(true)
+    try {
+      const nulledJson = replaceInnermostValuesWithNull(JSON.parse(schema.json))
+      const nulledSchema: TablesInsert<"schemas"> = {
+        ...schema,
+        json: JSON.stringify(nulledJson)
+      }
+      const res = await createOrSaveSchema(nulledSchema, uid)
+      toast.dismiss(toastId)
+      toast.success("Saved")
+      setIsLoading(false)
+    } catch (error) {
+      toast.dismiss(toastId)
+      toast.error("Error saving")
+    }
   }
   return (
     <div className="flex w-full flex-col items-center overflow-y-auto">
