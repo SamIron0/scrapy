@@ -84,6 +84,7 @@ export default function Dash() {
       setIsLoading(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
       toast.dismiss(toastId)
       toast.error("Error scraping data in catch")
     }
