@@ -21,6 +21,22 @@ import { createOrSaveSchema } from "@/db/schema"
 
 interface Props {}
 
+function replaceInnermostValuesWithNull(json: any): any {
+  if (Array.isArray(json)) {
+    return json.map(replaceInnermostValuesWithNull)
+  } else if (typeof json === "object") {
+    for (const key in json) {
+      if (typeof json[key] === "object" || Array.isArray(json[key])) {
+        json[key] = replaceInnermostValuesWithNull(json[key])
+      } else {
+        json[key] = null
+      }
+    }
+    return json
+  } else {
+    return null
+  }
+}
 export default function Dash() {
   const supabase = createClient()
   const { schema, setSchema } = useContext(ChatbotUIContext)
@@ -74,7 +90,7 @@ export default function Dash() {
       toast.dismiss(toastId)
       setSchema({
         url,
-        json: JSON.stringify(res.body, null, 2),
+        json: replaceInnermostValuesWithNull(JSON.stringify(res.body, null, 2)),
         id: uuidv4(),
         uid
       })
@@ -89,6 +105,7 @@ export default function Dash() {
       toast.error("Error scraping data in catch")
     }
   }
+
   const [isChecked, setIsChecked] = useState(false)
 
   const handleCheckboxChange = () => {
