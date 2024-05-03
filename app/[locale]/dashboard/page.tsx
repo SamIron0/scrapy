@@ -90,7 +90,7 @@ export default function Dash() {
       toast.dismiss(toastId)
       setSchema({
         url,
-        json: replaceInnermostValuesWithNull(JSON.stringify(res.body, null, 2)),
+        json: JSON.stringify(res.body, null, 2),
         id: uuidv4(),
         uid
       })
@@ -116,7 +116,8 @@ export default function Dash() {
     setIsLoading(true)
     if (!schema) return
     const toastId = toast.loading("Saving...")
-    const res = await createOrSaveSchema(schema, uid)
+    const nulledSchema = replaceInnermostValuesWithNull(JSON.parse(schema.json))
+    const res = await createOrSaveSchema(schnulledSchemaema, uid)
     toast.dismiss(toastId)
     toast.success("Saved")
     setIsLoading(false)
