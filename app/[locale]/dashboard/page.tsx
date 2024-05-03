@@ -114,10 +114,10 @@ export default function Dash() {
 
   const handleSave = async () => {
     setIsLoading(true)
-    if (!schema) return
+    if (!schema?.json) return
     const toastId = toast.loading("Saving...")
     const nulledSchema = replaceInnermostValuesWithNull(JSON.parse(schema.json))
-    const res = await createOrSaveSchema(schnulledSchemaema, uid)
+    const res = await createOrSaveSchema(nulledSchema, uid)
     toast.dismiss(toastId)
     toast.success("Saved")
     setIsLoading(false)
