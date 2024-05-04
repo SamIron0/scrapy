@@ -21,7 +21,7 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
 }) => {
   return (
     <div className="flex flex-col justify-between border-r border-input bg-background pb-5">
-      <TabsList className="grid h-[440px] grid-rows-7 ">
+      <TabsList className="grid h-[440px] grid-rows-7 pt-6 ">
         <SidebarSwitchItem
           icon={<IconDashboard size={SIDEBAR_ICON_SIZE} />}
           contentType="Dash"
