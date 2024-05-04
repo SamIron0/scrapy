@@ -1,7 +1,9 @@
 "use client"
 
 import Navbar from "@/components/ui/Navbar"
+import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
+import Link from "next/link"
 
 export default async function ChatPage() {
   const supabase = createClient()
@@ -15,12 +17,18 @@ export default async function ChatPage() {
   } else {
   }
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full  flex-col">
       {" "}
       <Navbar />
-      <div className="flex flex-col items-center justify-center">
-        Powerful web scraper for developers
+      <div className="mt-20 flex max-w-3xl flex-col items-center justify-center text-4xl">
+        <p className="text-3xl">Powerful web scraper for developers</p>
+        <p className="text-md mt-6 text-zinc-400">
+          The best way to get data from any website to your code through an API
+        </p>
       </div>
+      <Link href="/login" className="mt-8 rounded-lg px-10 ">
+        Try it out
+      </Link>
     </div>
   )
 }
