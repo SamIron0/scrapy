@@ -276,7 +276,7 @@ export default function Dash() {
                   {schema?.json}
                 </SyntaxHighlighter>
               ) : (
-                <>{highlightedCode}</>
+                <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
               )
             ) : (
               <div className="flex h-[200px] w-full shrink-0 items-center justify-center rounded-md border border-dashed">
