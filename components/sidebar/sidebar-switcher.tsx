@@ -20,7 +20,7 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
   onContentTypeChange
 }) => {
   return (
-    <div className="flex flex-col justify-between border-r  border-input pb-5">
+    <div className="flex flex-col justify-between border-r border-input bg-background pb-5">
       <TabsList className="grid h-[440px] grid-rows-7 ">
         <SidebarSwitchItem
           icon={<IconDashboard size={SIDEBAR_ICON_SIZE} />}
