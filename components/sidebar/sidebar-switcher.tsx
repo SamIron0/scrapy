@@ -20,8 +20,8 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
   onContentTypeChange
 }) => {
   return (
-    <div className="flex flex-col justify-between border-r border-input pb-5">
-      <TabsList className="grid h-[440px] grid-rows-7 bg-background">
+    <div className="flex flex-col justify-between border-r  border-input pb-5">
+      <TabsList className="grid h-[440px] grid-rows-7 ">
         <SidebarSwitchItem
           icon={<IconDashboard size={SIDEBAR_ICON_SIZE} />}
           contentType="Dash"
@@ -35,7 +35,7 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
       </TabsList>
 
-      <div className="flex flex-col items-center space-y-4 bg-muted">
+      <div className="flex flex-col items-center space-y-4 ">
         {/* TODO */}
         {/* <WithTooltip display={<div>Import</div>} trigger={<Import />} /> */}
 
