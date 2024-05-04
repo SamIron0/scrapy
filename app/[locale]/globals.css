@@ -101,3 +101,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+path {
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.copied {
+  transform: scale(1.1);
+  opacity: 0.5;
+}

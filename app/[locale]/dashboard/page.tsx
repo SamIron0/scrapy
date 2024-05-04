@@ -258,7 +258,13 @@ export default function Dash() {
                   {schema?.json}
                 </SyntaxHighlighter>
               ) : (
-                <div className="bg-background"></div>
+                <SyntaxHighlighter
+                  className="w-full rounded-lg border border-input"
+                  language="json"
+                  style={vscDarkPlus}
+                >
+                  {schema?.json}
+                </SyntaxHighlighter>
               )
             ) : (
               <div className="flex h-[200px] w-full shrink-0 items-center justify-center rounded-md border border-dashed">
