@@ -35,7 +35,7 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
       </TabsList>
 
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-col items-center space-y-4 bg-muted">
         {/* TODO */}
         {/* <WithTooltip display={<div>Import</div>} trigger={<Import />} /> */}
 
