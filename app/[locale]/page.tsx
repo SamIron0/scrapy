@@ -14,5 +14,5 @@ export default async function ChatPage() {
     console.error("Error getting session:", error)
   } else {
   }
-  return <Navbar />
+  return
 }
