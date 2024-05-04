@@ -20,7 +20,7 @@ export default async function ChatPage() {
     <div className="flex w-full  flex-col">
       {" "}
       <Navbar />
-      <div className="mt-20 flex max-w-3xl flex-col items-center justify-center text-4xl">
+      <div className="mt-20 flex max-w-3xl flex-col items-center justify-center p-4 text-4xl md:p-10">
         <p className="text-3xl">Powerful web scraper for developers</p>
         <p className="text-md mt-6 text-zinc-400">
           The best way to get data from any website to your code through an API
