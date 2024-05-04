@@ -10,7 +10,6 @@ import "./globals.css"
 import { Analytics } from "@vercel/analytics/react"
 import { Dashboard } from "@/components/ui/dashboard"
 import { GlobalState } from "@/components/utility/global-state"
-import Navbar from "@/components/ui/Navbar"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"
@@ -107,7 +106,6 @@ export default async function RootLayout({
         <Providers attribute="class" defaultTheme="dark">
           <Toaster richColors position="top-center" duration={3000} />
           <div className="flex h-dvh flex-col items-center overflow-x-auto bg-black text-foreground">
-            <Navbar />
             {session ? <GlobalState>{children}</GlobalState> : children}
           </div>
           <Analytics />

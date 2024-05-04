@@ -14,5 +14,13 @@ export default async function ChatPage() {
     console.error("Error getting session:", error)
   } else {
   }
-  return
+  return (
+    <div className="flex flex-col">
+      {" "}
+      <Navbar />
+      <div className="flex flex-col items-center justify-center">
+        Powerful web scraper for developers
+      </div>
+    </div>
+  )
 }
