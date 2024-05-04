@@ -48,20 +48,20 @@ export default function Dash() {
   const [url, setUrl] = useState(schema?.url || "")
   const [uid, setUid] = useState("")
   const router = useRouter()
-  const highlightedCode = hljs.highlight(
-    `fetch('https://e558-2604-3d09-aa7a-95e0-e006-b4c3-7148-61bd.ngrok-free.app/scrape', {
-      method: 'POST',
+  const js_api_code = `fetch(
+    "https://e558-2604-3d09-aa7a-95e0-e006-b4c3-7148-61bd.ngrok-free.app/scrape",
+    {
+      method: "POST",
       headers: {
-        'X-API-KEY': 'b16d92ad-f340-4f45-a27e-98e0570fad8e',
-        'Content-Type': 'application/json'
+        "X-API-KEY": "b16d92ad-f340-4f45-a27e-98e0570fad8e",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        key: ['Nutrition Facts'],
-        schema_id: 'acfc8fc4-0906-4d9c-a254-f1f0a4e104dd'
+        key: ["Nutrition Facts"],
+        schema_id: "acfc8fc4-0906-4d9c-a254-f1f0a4e104dd"
       })
-    }`,
-    { language: "javascript" }
-  ).value
+    }
+  )`
 
   useEffect(() => {
     async function checkUser() {
@@ -276,7 +276,13 @@ export default function Dash() {
                   {schema?.json}
                 </SyntaxHighlighter>
               ) : (
-                <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+                <SyntaxHighlighter
+                  className="w-full rounded-lg border border-input"
+                  language="json"
+                  style={vscDarkPlus}
+                >
+                  {js_api_code}
+                </SyntaxHighlighter>
               )
             ) : (
               <div className="flex h-[200px] w-full shrink-0 items-center justify-center rounded-md border border-dashed">
