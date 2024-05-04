@@ -18,7 +18,11 @@ import {
 import { useRouter } from "next/navigation"
 import { ChatbotUIContext } from "@/context/context"
 import { createOrSaveSchema } from "@/db/schema"
+import hljs from "highlight.js/lib/core"
+import javascript from "highlight.js/lib/languages/javascript"
 
+// Then register the languages you need
+hljs.registerLanguage("javascript", javascript)
 interface Props {}
 
 function replaceInnermostValuesWithNull(json: any): any {
@@ -44,6 +48,20 @@ export default function Dash() {
   const [url, setUrl] = useState(schema?.url || "")
   const [uid, setUid] = useState("")
   const router = useRouter()
+  const highlightedCode = hljs.highlight(
+    `fetch('https://e558-2604-3d09-aa7a-95e0-e006-b4c3-7148-61bd.ngrok-free.app/scrape', {
+      method: 'POST',
+      headers: {
+        'X-API-KEY': 'b16d92ad-f340-4f45-a27e-98e0570fad8e',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        key: ['Nutrition Facts'],
+        schema_id: 'acfc8fc4-0906-4d9c-a254-f1f0a4e104dd'
+      })
+    }`,
+    { language: "javascript" }
+  ).value
 
   useEffect(() => {
     async function checkUser() {
@@ -232,7 +250,7 @@ export default function Dash() {
                       height="16"
                       width="16"
                       viewBox="0 0 1792 1792"
-                      fill={isChecked ? "currentColor" : "text-purple-600"}
+                      fill={"currentColor"}
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
