@@ -76,14 +76,20 @@ export default function ApiKeys() {
         <p className="mb-2 w-full pt-12  text-2xl">SCHEMA KEYS</p>
 
         <div className="flex  w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-4">
-          <p className="mr-6">{schema?.id}</p>
-          <Button
-            size={"sm"}
-            className="ml-auto"
-            onClick={handleCopySchemaClick}
-          >
-            {schema_key_copied ? "copied" : "copy"}
-          </Button>
+          {schema?.id ? (
+            <div>
+              <p className="mr-6">{schema?.id}</p>
+              <Button
+                size={"sm"}
+                className="ml-auto"
+                onClick={handleCopySchemaClick}
+              >
+                {schema_key_copied ? "copied" : "copy"}
+              </Button>{" "}
+            </div>
+          ) : (
+            <p> Auto generated when you save a schema</p>
+          )}
         </div>
       </div>
     </div>
