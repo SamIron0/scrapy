@@ -49,7 +49,7 @@ export default function Dash() {
   const [uid, setUid] = useState("")
   const router = useRouter()
   const js_api_code = `fetch(
-    "https://e558-2604-3d09-aa7a-95e0-e006-b4c3-7148-61bd.ngrok-free.app/scrape",
+    "https://db90-142-165-127-227.ngrok-free.app/scrape",
     {
       method: "POST",
       headers: {
@@ -89,7 +89,7 @@ export default function Dash() {
     const toastId = toast.loading("Scraping...")
     try {
       const data = await fetch(
-        "https://e558-2604-3d09-aa7a-95e0-e006-b4c3-7148-61bd.ngrok-free.app/getSchema",
+        "db90-142-165-127-227.ngrok-free.app/getSchema",
         {
           method: "POST",
           headers: {
