@@ -48,21 +48,23 @@ export default function Dash() {
   const [url, setUrl] = useState(schema?.url || "")
   const [uid, setUid] = useState("")
   const router = useRouter()
-  const js_api_code = `fetch(
-    "https://db90-142-165-127-227.ngrok-free.app/scrape",
-    {
-      method: "POST",
-      headers: {
-        "X-API-KEY": "b16d92ad-f340-4f45-a27e-98e0570fad8e",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        key: ["Nutrition Facts"],
-        schema_id: "acfc8fc4-0906-4d9c-a254-f1f0a4e104dd"
-      })
-    }
-  )`
 
+  const js_api_code = `
+    fetch(
+      "https://db90-142-165-127-227.ngrok-free.app/scrape",
+      {
+        method: "POST",
+        headers: {
+          "X-API-KEY": "<API_KEY>",
+          "Content-Type": "application/json"
+        },
+        body:  JSON.stringify({
+          keys: ${JSON.stringify(Object.keys(schema?.json || [])[1])},
+          schema_id: "<SCHEMA_ID>"
+        })
+      }
+    )
+  `
   useEffect(() => {
     async function checkUser() {
       const {
