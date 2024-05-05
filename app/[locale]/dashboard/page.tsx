@@ -89,7 +89,7 @@ export default function Dash() {
     const toastId = toast.loading("Scraping...")
     try {
       const data = await fetch(
-        "db90-142-165-127-227.ngrok-free.app/getSchema",
+        "https://db90-142-165-127-227.ngrok-free.app/getSchema",
         {
           method: "POST",
           headers: {
