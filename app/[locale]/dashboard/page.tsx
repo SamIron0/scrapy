@@ -25,7 +25,7 @@ import javascript from "highlight.js/lib/languages/javascript"
 hljs.registerLanguage("javascript", javascript)
 interface Props {}
 
-function replaceInnermostValuesWithNull(json: any): any {
+function replaceInnermostValuesWithNullo(json: any): any {
   if (Array.isArray(json)) {
     return json.map(replaceInnermostValuesWithNull)
   } else if (typeof json === "object") {
@@ -41,7 +41,7 @@ function replaceInnermostValuesWithNull(json: any): any {
     return null
   }
 }
-function replaceInnermostValuesWithNullo(json: any): any {
+function replaceInnermostValuesWithNull(json: any): any {
   if (Array.isArray(json)) {
     return json.map(replaceInnermostValuesWithNull)
   } else if (typeof json === "object") {
