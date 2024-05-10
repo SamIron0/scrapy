@@ -49,6 +49,7 @@ export default function Dash() {
   const [url, setUrl] = useState(schema?.url || "")
   const [uid, setUid] = useState("")
   const router = useRouter()
+  const [schema_json_copied, setSchema_json_copied] = useState(false)
 
   const js_api_code = `
     fetch(
@@ -150,6 +151,22 @@ export default function Dash() {
     } catch (error) {
       toast.dismiss(toastId)
       toast.error("Error saving")
+    }
+  }
+  const handleCopySchemaClick = () => {
+    if (schema) {
+      navigator.clipboard
+        .writeText(schema.id.toString())
+        .then(() => {
+          toast.success("Copied to clipboard")
+          setSchema_json_copied(true)
+          setTimeout(() => {
+            setSchema_json_copied(false)
+          }, 1000)
+        })
+        .catch(error => {
+          console.error("Error copying text to clipboard:", error)
+        })
     }
   }
   return (
@@ -271,13 +288,56 @@ export default function Dash() {
           <div className="max-h-[600px] w-full flex-col justify-center overflow-y-auto ">
             {schema?.json ? (
               !isChecked ? (
-                <SyntaxHighlighter
-                  className="w-full rounded-lg border border-input"
-                  language="json"
-                  style={vscDarkPlus}
-                >
-                  {schema?.json}
-                </SyntaxHighlighter>
+                <div className="relative">
+                  <button
+                    className="absolute right-0 top-0  flex flex-row p-2"
+                    onClick={handleCopySchemaClick}
+                  >
+                    {schema_json_copied ? (
+                      <svg
+                        className="size-8 text-green-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="size-8 text-gray-500"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        {" "}
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        />{" "}
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                      </svg>
+                    )}{" "}
+                  </button>
+                  <SyntaxHighlighter
+                    className="w-full rounded-lg border border-input"
+                    language="json"
+                    style={vscDarkPlus}
+                  >
+                    {schema?.json}
+                  </SyntaxHighlighter>
+                </div>
               ) : (
                 <SyntaxHighlighter
                   className="w-full rounded-lg border border-input"
