@@ -41,6 +41,26 @@ function replaceInnermostValuesWithNull(json: any): any {
     return null
   }
 }
+function replaceInnermostValuesWithNullo(json: any): any {
+  if (Array.isArray(json)) {
+    return json.map(replaceInnermostValuesWithNull)
+  } else if (typeof json === "object") {
+    for (const key in json) {
+      if (typeof json[key] === "object" || Array.isArray(json[key])) {
+        json[key] = replaceInnermostValuesWithNull(json[key])
+      } else if (typeof json[key] === "string" && /\n/.test(json[key])) {
+        // preserve newline characters in string values
+        continue
+      } else {
+        json[key] = null
+      }
+    }
+    return json
+  } else {
+    return null
+  }
+}
+
 export default function Dash() {
   const supabase = createClient()
   const { schema, setSchema } = useContext(ChatbotUIContext)
