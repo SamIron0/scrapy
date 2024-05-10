@@ -169,13 +169,13 @@ export default function Dash() {
             />
           </div>
           <div className=" flex h-[180px] w-full flex-col rounded-lg border border-input bg-background p-4">
-            <Label className="pb-2 text-xl ">Description</Label>
+            <Label className="pb-2 text-xl ">Description(required)</Label>
             <p className="pb-2 text-sm text-zinc-400">
               {" "}
               Describe the data you want to receive
             </p>
             <TextareaAutosize
-              placeholder={`Reviews and prices.`}
+              placeholder={`List me only the projects and descriptions.`}
               value={description}
               onValueChange={value => {
                 setDescription(value)
