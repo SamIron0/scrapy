@@ -25,22 +25,6 @@ import javascript from "highlight.js/lib/languages/javascript"
 hljs.registerLanguage("javascript", javascript)
 interface Props {}
 
-function replaceInnermostValuesWithNullo(json: any): any {
-  if (Array.isArray(json)) {
-    return json.map(replaceInnermostValuesWithNull)
-  } else if (typeof json === "object") {
-    for (const key in json) {
-      if (typeof json[key] === "object" || Array.isArray(json[key])) {
-        json[key] = replaceInnermostValuesWithNull(json[key])
-      } else {
-        json[key] = null
-      }
-    }
-    return json
-  } else {
-    return null
-  }
-}
 function replaceInnermostValuesWithNull(json: any): any {
   if (Array.isArray(json)) {
     return json.map(replaceInnermostValuesWithNull)
@@ -48,9 +32,6 @@ function replaceInnermostValuesWithNull(json: any): any {
     for (const key in json) {
       if (typeof json[key] === "object" || Array.isArray(json[key])) {
         json[key] = replaceInnermostValuesWithNull(json[key])
-      } else if (typeof json[key] === "string" && /\n/.test(json[key])) {
-        // preserve newline characters in string values
-        continue
       } else {
         json[key] = null
       }
@@ -195,7 +176,7 @@ export default function Dash() {
               Describe the data you want to receive
             </p>
             <TextareaAutosize
-              placeholder={`List me only the projects and descriptions.`}
+              placeholder={`List the project names and descriptions.`}
               value={description}
               onValueChange={value => {
                 setDescription(value)
