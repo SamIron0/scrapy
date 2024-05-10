@@ -169,7 +169,7 @@ export default function Dash() {
             />
           </div>
           <div className=" flex h-[180px] w-full flex-col rounded-lg border border-input bg-background p-4">
-            <Label className="pb-2 text-xl ">Description (optional)</Label>
+            <Label className="pb-2 text-xl ">Description</Label>
             <p className="pb-2 text-sm text-zinc-400">
               {" "}
               Describe the data you want to receive
