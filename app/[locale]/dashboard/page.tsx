@@ -79,7 +79,7 @@ export default function Dash() {
           "Content-Type": "application/json"
         },
         body:  JSON.stringify({
-          keys: ${JSON.stringify(Object.keys(schema?.json || [])[1])},
+          keys: ${Object.keys(schema?.json || [])[1]},
           schema_id: "<SCHEMA_ID>"
         })
       }
