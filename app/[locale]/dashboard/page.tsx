@@ -290,7 +290,7 @@ export default function Dash() {
               !isChecked ? (
                 <div className="relative">
                   <button
-                    className="absolute right-0 top-0  flex flex-row p-2"
+                    className="absolute right-0 top-0 p-2"
                     onClick={handleCopySchemaClick}
                   >
                     {schema_json_copied ? (
@@ -331,7 +331,7 @@ export default function Dash() {
                     )}{" "}
                   </button>
                   <SyntaxHighlighter
-                    className="w-full rounded-lg border border-input"
+                    className="mt-4 w-full rounded-lg border border-input"
                     language="json"
                     style={vscDarkPlus}
                   >
