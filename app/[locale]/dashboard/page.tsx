@@ -142,7 +142,7 @@ export default function Dash() {
       const nulledJson = replaceInnermostValuesWithNull(JSON.parse(schema.json))
       const nulledSchema: TablesInsert<"schemas"> = {
         ...schema,
-        json: JSON.stringify(nulledJson)
+        json: nulledJson
       }
       const res = await createOrSaveSchema(nulledSchema, uid)
       toast.dismiss(toastId)
