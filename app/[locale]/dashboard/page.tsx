@@ -295,7 +295,7 @@ export default function Dash() {
                   >
                     {schema_json_copied ? (
                       <svg
-                        className="size-8 text-green-500"
+                        className="size-5 text-green-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -309,7 +309,7 @@ export default function Dash() {
                       </svg>
                     ) : (
                       <svg
-                        className="size-8 text-gray-500"
+                        className="size-5 text-gray-500 hover:text-gray-200"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -331,7 +331,7 @@ export default function Dash() {
                     )}{" "}
                   </button>
                   <SyntaxHighlighter
-                    className="mt-4 w-full rounded-lg border border-input"
+                    className="w-full rounded-lg border border-input pt-6"
                     language="json"
                     style={vscDarkPlus}
                   >
@@ -339,13 +339,57 @@ export default function Dash() {
                   </SyntaxHighlighter>
                 </div>
               ) : (
-                <SyntaxHighlighter
-                  className="w-full rounded-lg border border-input"
-                  language="json"
-                  style={vscDarkPlus}
-                >
-                  {js_api_code}
-                </SyntaxHighlighter>
+                <div className="relative">
+                  <button
+                    className="absolute right-0 top-0 p-2"
+                    onClick={handleCopySchemaClick}
+                  >
+                    {schema_json_copied ? (
+                      <svg
+                        className="size-5 text-green-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="size-5 text-gray-500 hover:text-gray-200"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        {" "}
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        />{" "}
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                      </svg>
+                    )}{" "}
+                  </button>
+
+                  <SyntaxHighlighter
+                    className="w-full rounded-lg border border-input pt-6"
+                    language="json"
+                    style={vscDarkPlus}
+                  >
+                    {js_api_code}
+                  </SyntaxHighlighter>
+                </div>
               )
             ) : (
               <div className="flex h-[200px] w-full shrink-0 items-center justify-center rounded-md border border-dashed">

@@ -67,13 +67,10 @@ export default function ApiKeys() {
       <div className="flex w-full max-w-3xl flex-col p-2 ">
         <p className="mb-2 w-full text-2xl">API KEYS</p>
 
-        <div className="flex w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-4">
+        <div className="flex w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">
           <p className="mr-6">{apikeys?.id}</p>
           <div className="relative">
-            <button
-              className="absolute right-0 top-0 p-2"
-              onClick={handleCopyApiKeyClick}
-            >
+            <button className=" p-2" onClick={handleCopyApiKeyClick}>
               {api_key_copied ? (
                 <svg
                   className="size-8 text-green-500"
@@ -108,18 +105,15 @@ export default function ApiKeys() {
         </div>
         <p className="mb-2 w-full pt-12  text-2xl">SCHEMA KEYS</p>
 
-        <div className="flex  w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-4">
+        <div className="flex  w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">
           {schema?.id ? (
             <div>
               <p className="mr-6">{schema?.id}</p>
               <div className="relative">
-                <button
-                  className="absolute right-0 top-0 p-2"
-                  onClick={handleCopySchemaClick}
-                >
+                <button className="p-2" onClick={handleCopySchemaClick}>
                   {schema_key_copied ? (
                     <svg
-                      className="size-8 text-green-500"
+                      className="size-5 text-green-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -133,7 +127,7 @@ export default function ApiKeys() {
                     </svg>
                   ) : (
                     <svg
-                      className="size-8 text-gray-500"
+                      className="size-5 text-gray-500"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
