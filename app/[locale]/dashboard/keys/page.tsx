@@ -73,7 +73,7 @@ export default function ApiKeys() {
             <button className=" p-2" onClick={handleCopyApiKeyClick}>
               {api_key_copied ? (
                 <svg
-                  className="size-8 text-green-500"
+                  className="size-5 text-green-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -107,7 +107,7 @@ export default function ApiKeys() {
 
         <div className="flex  w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">
           {schema?.id ? (
-            <div>
+            <div className="flex w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">
               <p className="mr-6">{schema?.id}</p>
               <div className="relative">
                 <button className="p-2" onClick={handleCopySchemaClick}>
