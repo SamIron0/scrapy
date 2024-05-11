@@ -36,7 +36,7 @@ function replaceInnermostValuesWithNull(json: any): any {
         json[key] = null
       }
     }
-    return json
+    return JSON.stringify(json, null, 2)
   } else {
     return null
   }
