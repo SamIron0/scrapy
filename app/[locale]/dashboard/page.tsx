@@ -177,9 +177,9 @@ export default function Dash() {
         .writeText(js_api_code)
         .then(() => {
           toast.success("Copied to clipboard")
-          setSchema_json_copied(true)
+          setApi_call_copied(true)
           setTimeout(() => {
-            setSchema_json_copied(false)
+            setApi_call_copied(false)
           }, 1000)
         })
         .catch(error => {
