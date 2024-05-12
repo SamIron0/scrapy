@@ -341,7 +341,7 @@ export default function Dash() {
               ) : (
                 <div className="relative">
                   <button
-                    className="absolute right-0 top-0 p-2"
+                    className="absolute right-2 top-2 p-2"
                     onClick={handleCopySchemaClick}
                   >
                     {schema_json_copied ? (
