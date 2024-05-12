@@ -36,7 +36,7 @@ function replaceInnermostValuesWithNull(json: any): any {
         json[key] = null
       }
     }
-    return JSON.stringify(json, null, 2)
+    return json
   } else {
     return null
   }
@@ -139,7 +139,8 @@ export default function Dash() {
     const toastId = toast.loading("Saving...")
     setIsLoading(true)
     try {
-      const nulledJson = replaceInnermostValuesWithNull(JSON.parse(schema.json))
+      const json = replaceInnermostValuesWithNull(JSON.parse(schema.json))
+      const nulledJson = JSON.stringify(json, null, 2)
       const nulledSchema: TablesInsert<"schemas"> = {
         ...schema,
         json: nulledJson
