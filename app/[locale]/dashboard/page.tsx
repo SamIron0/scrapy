@@ -155,7 +155,7 @@ export default function Dash() {
       toast.error("Error saving")
     }
   }
-  const handleCopySchemaClick = () => {
+  const handleCopySchema = () => {
     if (schema) {
       navigator.clipboard
         .writeText(schema.json)
@@ -171,6 +171,23 @@ export default function Dash() {
         })
     }
   }
+  const handleCopyApiCall = () => {
+    if (schema) {
+      navigator.clipboard
+        .writeText(js_api_code)
+        .then(() => {
+          toast.success("Copied to clipboard")
+          setSchema_json_copied(true)
+          setTimeout(() => {
+            setSchema_json_copied(false)
+          }, 1000)
+        })
+        .catch(error => {
+          console.error("Error copying text to clipboard:", error)
+        })
+    }
+  }
+
   return (
     <div className="flex w-full flex-col items-center overflow-y-auto">
       <div className="mt-10 flex w-full max-w-4xl flex-col p-6 sm:mt-0 sm:p-16">
@@ -293,7 +310,7 @@ export default function Dash() {
                 <div className="relative">
                   <button
                     className="absolute right-2 top-2 p-2"
-                    onClick={handleCopySchemaClick}
+                    onClick={handleCopySchema}
                   >
                     {schema_json_copied ? (
                       <svg
@@ -344,7 +361,7 @@ export default function Dash() {
                 <div className="relative">
                   <button
                     className="absolute right-2 top-2 p-2"
-                    onClick={handleCopySchemaClick}
+                    onClick={handleCopyApiCall}
                   >
                     {api_call_copied ? (
                       <svg
