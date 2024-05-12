@@ -50,6 +50,7 @@ export default function Dash() {
   const [uid, setUid] = useState("")
   const router = useRouter()
   const [schema_json_copied, setSchema_json_copied] = useState(false)
+  const [api_call_copied, setApi_call_copied] = useState(false)
 
   const js_api_code = `
     fetch(
@@ -157,7 +158,7 @@ export default function Dash() {
   const handleCopySchemaClick = () => {
     if (schema) {
       navigator.clipboard
-        .writeText(schema.id.toString())
+        .writeText(schema.json)
         .then(() => {
           toast.success("Copied to clipboard")
           setSchema_json_copied(true)
@@ -345,7 +346,7 @@ export default function Dash() {
                     className="absolute right-2 top-2 p-2"
                     onClick={handleCopySchemaClick}
                   >
-                    {schema_json_copied ? (
+                    {api_call_copied ? (
                       <svg
                         className="size-5 text-green-500"
                         fill="none"

@@ -306,19 +306,19 @@ export type Database = {
         Row: {
           id: string
           url: string | null
-          json: string | null
+          json: string
           uid: string | null
         }
         Insert: {
           id: string
           url: string | null
-          json: string | null
+          json: string
           uid: string | null
         }
         Update: {
           id?: string
           url?: string | null
-          json?: string | null
+          json?: string
           uid?: string | null
         }
         Relationships: [] // No relationships defined in the schema
