@@ -87,7 +87,7 @@ export default function ApiKeys() {
                 </svg>
               ) : (
                 <svg
-                  className="size-8 text-gray-500"
+                  className="size-5 text-gray-500"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -105,55 +105,53 @@ export default function ApiKeys() {
         </div>
         <p className="mb-2 w-full pt-12  text-2xl">SCHEMA KEYS</p>
 
-        <div className="flex  w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">
-          {schema?.id ? (
-            <div className="flex w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">
-              <p className="mr-6">{schema?.id}</p>
-              <div className="relative">
-                <button className="p-2" onClick={handleCopySchemaClick}>
-                  {schema_key_copied ? (
-                    <svg
-                      className="size-5 text-green-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="size-5 text-gray-500"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
+        {schema?.id ? (
+          <div className="flex w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">
+            <p className="mr-6">{schema?.id}</p>
+            <div className="relative">
+              <button className="p-2" onClick={handleCopySchemaClick}>
+                {schema_key_copied ? (
+                  <svg
+                    className="size-5 text-green-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                    >
-                      {" "}
-                      <rect
-                        x="9"
-                        y="9"
-                        width="13"
-                        height="13"
-                        rx="2"
-                        ry="2"
-                      />{" "}
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                    </svg>
-                  )}{" "}
-                </button>
-              </div>
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="size-5 text-gray-500"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    {" "}
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    />{" "}
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                )}{" "}
+              </button>
             </div>
-          ) : (
-            <p> Auto generated when you save a schema</p>
-          )}
-        </div>
+          </div>
+        ) : (
+          <p> Auto generated when you save a schema</p>
+        )}
       </div>
     </div>
   )
