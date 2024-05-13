@@ -103,7 +103,7 @@ export default function ApiKeys() {
             </button>
           </div>
         </div>
-        <p className="mb-2 w-full pt-12  text-2xl">SCHEMA KEYS</p>
+        <p className="mb-2 w-full pt-12  text-2xl">SCHEMA ID</p>
 
         {schema?.id ? (
           <div className="flex w-full max-w-xl flex-row items-center justify-center rounded-lg border border-input p-2">

@@ -298,6 +298,7 @@ export default function Dash() {
                         stroke-width="2"
                       />
                     </svg>
+                    <span className="text-small ml-2 font-medium">API</span>
                   </span>
                 </div>
               </label>
