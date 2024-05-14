@@ -25,6 +25,31 @@ export default async function ChatPage() {
         <p className=" mt-6 text-zinc-400">
           The best way to get data from any website to your code through an API
         </p>
+        {/* Hero content */}
+        <div className="pb-6 pt-24 md:pb-14 md:pt-32">
+          {/* Section header */}
+          <div className="pb-12 text-center md:pb-16">
+            <h1
+              className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter text-white md:text-6xl"
+              data-aos="zoom-y-out"
+            >
+              <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text pr-2 text-transparent">
+                Powerful
+              </span>
+              web scraper for developers
+            </h1>
+            <div className="mx-auto max-w-3xl">
+              <p
+                className="mb-8 text-xl text-gray-600"
+                data-aos="zoom-y-out"
+                data-aos-delay="150"
+              >
+                The best way to get data from any website to your code through
+                an API
+              </p>{" "}
+            </div>
+          </div>
+        </div>
         <Link
           href={"/login"}
           className="group mt-6 flex scale-100 items-center justify-center rounded-md bg-[#f5f7f9] px-20 py-3 text-lg font-semibold text-[#1E2B3A] no-underline transition-all duration-75 active:scale-95"
