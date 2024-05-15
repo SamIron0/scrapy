@@ -20,30 +20,28 @@ export default async function ChatPage() {
     <div className="flex w-full flex-col items-center">
       {" "}
       <Navbar />
+      {/* Hero content */}
       <div className="mt-28 flex max-w-3xl flex-col items-center justify-center p-4 sm:mt-24 md:p-10">
-        {/* Hero content */}
-        <div className="pb-6 pt-24 md:pb-14 md:pt-32">
-          {/* Section header */}
-          <div className="pb-12 text-center md:pb-16">
-            <h1
-              className="leading-tighter mb-6 text-5xl font-extrabold tracking-tighter text-white md:text-6xl"
+        {/* Section header */}
+        <div className="pb-12 text-center md:pb-16">
+          <h1
+            className="leading-tighter mb-6 text-5xl font-extrabold tracking-tighter text-white md:text-6xl"
+            data-aos="zoom-y-out"
+          >
+            <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text pr-2 text-transparent">
+              Powerful
+            </span>
+            web scraper for developers
+          </h1>
+          <div className="mx-auto max-w-3xl">
+            <p
+              className="mb-8 text-xl text-zinc-400"
               data-aos="zoom-y-out"
+              data-aos-delay="150"
             >
-              <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text pr-2 text-transparent">
-                Powerful
-              </span>
-              web scraper for developers
-            </h1>
-            <div className="mx-auto max-w-3xl">
-              <p
-                className="mb-8 text-xl text-zinc-400"
-                data-aos="zoom-y-out"
-                data-aos-delay="150"
-              >
-                The best way to get data from any website to your code through
-                an API
-              </p>{" "}
-            </div>
+              The best way to get data from any website to your code through an
+              API
+            </p>{" "}
           </div>
         </div>
         <Link
