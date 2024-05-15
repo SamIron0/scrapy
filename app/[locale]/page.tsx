@@ -46,7 +46,7 @@ export default async function ChatPage() {
         </div>
         <Link
           href={"/login"}
-          className="group mt-6 flex scale-100 items-center justify-center rounded-md bg-[#f5f7f9] px-20 py-3 text-lg font-semibold text-[#1E2B3A] no-underline transition-all duration-75 active:scale-95"
+          className="group mt-6 flex scale-100 items-center justify-center rounded-md bg-[#f5f7f9] px-20 py-2 text-lg font-semibold text-[#1E2B3A] no-underline transition-all duration-75 active:scale-95"
           style={{
             boxShadow: "0 1px 1px #0c192714, 0 1px 3px #0c192724"
           }}

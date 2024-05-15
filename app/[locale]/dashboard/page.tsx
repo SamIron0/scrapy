@@ -233,78 +233,141 @@ export default function Dash() {
           </Button>
         </div>
         <div className=" mt-16 flex w-full flex-col items-center rounded-lg  border border-input bg-background p-4">
-          {schema?.id ? (
-            <div className="flex w-full flex-row items-center justify-between pb-3">
-              <Label className="  text-2xl ">Schema</Label>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant={"outline"}
-                  onClick={handleSave}
-                  className="px-4"
-                >
-                  Save
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="flex w-full flex-row items-center justify-between pb-3">
-              <Label className="  text-2xl ">API</Label>
-            </div>
-          )}
-          <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center">
-            <input
-              type="checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-              className="sr-only"
-            />
+          {schema?.id &&
+            (!isChecked ? (
+              <div className="flex w-full flex-row items-center justify-between pb-3">
+                <Label className="  text-2xl ">Schema</Label>
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant={"outline"}
+                    onClick={handleSave}
+                    className="px-4"
+                  >
+                    Save
+                  </Button>
+                </div>
+                <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                    className="sr-only"
+                  />
 
-            <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-background shadow-card">
-              <span
-                className={`flex size-9 items-center justify-center rounded ${
-                  !isChecked ? "bg-white text-purple-600" : "text-body-color"
-                }`}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14 19H16C17.1046 19 18 18.1046 18 17V14.5616C18 13.6438 18.6246 12.8439 19.5149 12.6213L21.0299 12.2425C21.2823 12.1794 21.2823 11.8206 21.0299 11.7575L19.5149 11.3787C18.6246 11.1561 18 10.3562 18 9.43845V5H14"
-                    stroke="currentColor"
-                    stroke-width="2"
+                  <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-background shadow-card">
+                    <span
+                      className={`flex size-9 items-center justify-center rounded ${
+                        !isChecked
+                          ? "bg-white text-purple-600"
+                          : "text-body-color"
+                      }`}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14 19H16C17.1046 19 18 18.1046 18 17V14.5616C18 13.6438 18.6246 12.8439 19.5149 12.6213L21.0299 12.2425C21.2823 12.1794 21.2823 11.8206 21.0299 11.7575L19.5149 11.3787C18.6246 11.1561 18 10.3562 18 9.43845V5H14"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M10 5H8C6.89543 5 6 5.89543 6 7V9.43845C6 10.3562 5.37541 11.1561 4.48507 11.3787L2.97014 11.7575C2.71765 11.8206 2.71765 12.1794 2.97014 12.2425L4.48507 12.6213C5.37541 12.8439 6 13.6438 6 14.5616V19H10"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      className={`flex size-9 items-center justify-center rounded ${
+                        isChecked
+                          ? "bg-white text-purple-600"
+                          : "text-body-color"
+                      }`}
+                    >
+                      <svg
+                        height="16"
+                        width="16"
+                        viewBox="0 0 1792 1792"
+                        fill={"currentColor"}
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M553 1399l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23t-10 23l-393 393 393 393q10 10 10 23t-10 23zm591-1067l-373 1291q-4 13-15.5 19.5t-23.5 2.5l-62-17q-13-4-19.5-15.5t-2.5-24.5l373-1291q4-13 15.5-19.5t23.5-2.5l62 17q13 4 19.5 15.5t2.5 24.5zm657 651l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23t-10 23z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </label>
+              </div>
+            ) : (
+              <div className="flex w-full flex-row items-center justify-between pb-3">
+                <Label className="  text-2xl ">API</Label>{" "}
+                <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                    className="sr-only"
                   />
-                  <path
-                    d="M10 5H8C6.89543 5 6 5.89543 6 7V9.43845C6 10.3562 5.37541 11.1561 4.48507 11.3787L2.97014 11.7575C2.71765 11.8206 2.71765 12.1794 2.97014 12.2425L4.48507 12.6213C5.37541 12.8439 6 13.6438 6 14.5616V19H10"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                </svg>
-              </span>
-              <span
-                className={`flex size-9 items-center justify-center rounded ${
-                  isChecked ? "bg-white text-purple-600" : "text-body-color"
-                }`}
-              >
-                <svg
-                  height="16"
-                  width="16"
-                  viewBox="0 0 1792 1792"
-                  fill={"currentColor"}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M553 1399l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23t-10 23l-393 393 393 393q10 10 10 23t-10 23zm591-1067l-373 1291q-4 13-15.5 19.5t-23.5 2.5l-62-17q-13-4-19.5-15.5t-2.5-24.5l373-1291q4-13 15.5-19.5t23.5-2.5l62 17q13 4 19.5 15.5t2.5 24.5zm657 651l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23t-10 23z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                </svg>
-              </span>
-            </div>
-          </label>
+
+                  <div className="flex h-[46px] w-[82px] items-center justify-center rounded-md bg-background shadow-card">
+                    <span
+                      className={`flex size-9 items-center justify-center rounded ${
+                        !isChecked
+                          ? "bg-white text-purple-600"
+                          : "text-body-color"
+                      }`}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14 19H16C17.1046 19 18 18.1046 18 17V14.5616C18 13.6438 18.6246 12.8439 19.5149 12.6213L21.0299 12.2425C21.2823 12.1794 21.2823 11.8206 21.0299 11.7575L19.5149 11.3787C18.6246 11.1561 18 10.3562 18 9.43845V5H14"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M10 5H8C6.89543 5 6 5.89543 6 7V9.43845C6 10.3562 5.37541 11.1561 4.48507 11.3787L2.97014 11.7575C2.71765 11.8206 2.71765 12.1794 2.97014 12.2425L4.48507 12.6213C5.37541 12.8439 6 13.6438 6 14.5616V19H10"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      className={`flex size-9 items-center justify-center rounded ${
+                        isChecked
+                          ? "bg-white text-purple-600"
+                          : "text-body-color"
+                      }`}
+                    >
+                      <svg
+                        height="16"
+                        width="16"
+                        viewBox="0 0 1792 1792"
+                        fill={"currentColor"}
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M553 1399l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23t-10 23l-393 393 393 393q10 10 10 23t-10 23zm591-1067l-373 1291q-4 13-15.5 19.5t-23.5 2.5l-62-17q-13-4-19.5-15.5t-2.5-24.5l373-1291q4-13 15.5-19.5t23.5-2.5l62 17q13 4 19.5 15.5t2.5 24.5zm657 651l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23t-10 23z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </label>
+              </div>
+            ))}
 
           <div className="max-h-[600px] w-full flex-col justify-center overflow-y-auto ">
             {schema?.json ? (
