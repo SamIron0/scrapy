@@ -31,7 +31,7 @@ export default async function ChatPage() {
             <span className="bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text pr-2 text-transparent">
               Powerful
             </span>
-            web scraper for developers
+            web scraper tool for developers
           </h1>
           <div className="mx-auto max-w-3xl">
             <p
