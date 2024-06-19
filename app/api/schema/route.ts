@@ -30,12 +30,3 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify({ error: error }))
   }
 }
-
-/*const apiKey = "YyUzxAyn6O6r9ZLUgLTLnarp27Rh5WsW5U0XeXhs"
-const apiUrl =
-"https://0dab1tpzjk.execute-api.us-east-1.amazonaws.com/default/scrape"
-
-const headers = new Headers({
-"Content-Type": "application/json",
-"x-api-key": apiKey
-})*/
