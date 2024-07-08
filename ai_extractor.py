@@ -26,8 +26,8 @@ def construct_text_from_recipe(recipe):
         parts.append(f"Meal Type: {recipe['meal_type']}")
     if recipe.get("ingredients"):
         parts.append(f"Ingredients: {recipe['ingredients']}")
-    if recipe.get("cuisine_type") != None:
-        parts.append(f"Cuisine Type: {recipe['cuisine_type']}")
+    if recipe.get("cuisine") != None:
+        parts.append(f"Cuisine: {recipe['cuisine']}")
     if recipe.get("cooking_method") != None:
         parts.append(f"Cooking Method: {recipe['cooking_method']}")
     if recipe.get("course_type") != None:

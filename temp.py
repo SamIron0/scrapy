@@ -72,9 +72,7 @@ def extract_recipe_info(script_content):
             [step["text"] for step in recipe_data.get("recipeInstructions", [])]
         ),
         "cuisine": ", ".join(recipe_data.get("recipeCuisine", [])),
-        "rating_count": int(
-            recipe_data.get("aggregateRating", {}).get("ratingCount", 0)
-        ),
+        "imgUrl": recipe_data.get("image", {}).get("url", ""),
         "rating_count": int(
             recipe_data.get("aggregateRating", {}).get("ratingCount", 0)
         ),
@@ -82,6 +80,8 @@ def extract_recipe_info(script_content):
             recipe_data.get("aggregateRating", {}).get("ratingValue", 0)
         ),
         "embedding": [],
+        "url": "",
+        "kw_search_text": "",
     }
     return recipe
 
@@ -89,7 +89,9 @@ def extract_recipe_info(script_content):
 def scrape_recipe(page, url):
     page.goto(url)
     script_content = page.query_selector("script#allrecipes-schema_1-0").text_content()
-    return extract_recipe_info(script_content)
+    recipe_info = extract_recipe_info(script_content)
+    recipe_info["url"] = url
+    return recipe_info
 
 
 def fetch_sitemap_urls(sitemap_url):
@@ -131,6 +133,8 @@ def fetch_sitemap_urls(sitemap_url):
 
 def construct_text_from_recipe(recipe):
     parts = []
+    time = recipe["total_time"]
+    time_str = f"{ time[0]}hrs {time[1]}mins"
     if recipe.get("name"):
         parts.append(f"Dish: {recipe['name']}")
     if recipe.get("category") != None:
@@ -139,10 +143,12 @@ def construct_text_from_recipe(recipe):
         parts.append(f"Ingredients: {recipe['ingredients']}")
     if recipe.get("cuisine") != None:
         parts.append(f"Cuisine: {recipe['cuisine']}")
-    if recipe.get("cooking_method") != None:
-        parts.append(f"Cooking Method: {recipe['cooking_method']}")
-    if recipe.get("course_type") != None:
-        parts.append(f"Course Type: {recipe['course_type']}")
+    if recipe.get("total_time") != None:
+        parts.append(f"Cooking Time: {time_str}")
+    if recipe.get("instructions") != None:
+        parts.append(f"Instructions: {recipe['instructions']}")
+    if recipe.get("description") != None:
+        parts.append(f"Description: {recipe['description']}")
 
     return "\n".join(parts)
 
@@ -156,7 +162,7 @@ def main():
         browser = p.chromium.launch()
         page = browser.new_page()
         count = 0
-        for url in recipe_urls[51:120]:
+        for url in recipe_urls[:60]:
             count += 1
             if count % 10 == 0:
                 print(count, "done\n")
@@ -168,7 +174,9 @@ def main():
                 ):
                     # recipes.append(recipe_info)
                     text = construct_text_from_recipe(recipe_info)
+                    # print("text", text)
                     recipe_info["embedding"] = create_embedding(text)
+                    recipe_info["kw_search_text"] = text
                     supabase.table("recipes2").insert(recipe_info).execute()
             except Exception as e:
                 print("Error ", e)
@@ -177,13 +185,15 @@ def main():
 
 
 def create_embedding(text):
-
-    response = co.embed(
-        model="embed-english-v3.0",
-        texts=[text],
-        input_type="classification",
-        truncate="NONE",
-    )
+    try:
+        response = co.embed(
+            model="embed-english-v3.0",
+            texts=[text],
+            input_type="classification",
+            truncate="NONE",
+        )
+    except Exception as e:
+        print("Embedding error", e)
     return response.embeddings[0]
 
 
