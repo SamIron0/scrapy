@@ -15,6 +15,8 @@ import os
 from supabase import Client, create_client
 import uuid
 
+api_key = os.getenv("HUGGINGFACE_API_KEY")
+
 headers = {"Authorization": f"Bearer {api_key}"}
 
 supabase_url: str = "https://nrmhfqjygpjiqcixhpvn.supabase.co"
@@ -169,10 +171,10 @@ def main():
         browser = p.chromium.launch()
         page = browser.new_page()
         count = 0
-        for url in recipe_urls[7403:7425]:
+        for url in recipe_urls[7440:12000]:
             # for url in recipe_urls[6:]:
             count += 1
-            if count % 100 == 0:
+            if count % 5 == 0:
                 print(count, "done\n")
             try:
                 recipe_info = scrape_recipe(page, url)
@@ -185,8 +187,8 @@ def main():
                     # print("text", text)
                     # recipe_info["embedding"] = create_embedding(text)
                     recipe_info["kw_search_text"] = text
-                    recipe_info["embedding"] = create_embedding(text)
-                    print(recipe_info)
+                    recipe_info["embedding2"] = create_embedding(text)
+                    #print(recipe_info)
                     supabase.table("recipes2").insert(recipe_info).execute()
             except Exception as e:
                 print("Error ", e)
@@ -200,9 +202,9 @@ def create_embedding(query):
         "inputs": query,
     }
     response = requests.post(API_URL, headers=headers, json=payload)
-    print(response.json())
+    #print(response.json())
 
-    return response
+    return response.json()
 
 
 if __name__ == "__main__":
