@@ -82,7 +82,7 @@ def extract_recipe_info(script_content):
             [step["text"] for step in recipe_data.get("recipeInstructions", [])]
         ),
         "cuisine": ", ".join(recipe_data.get("recipeCuisine", [])),
-        "imgUrl": recipe_data.get("image", {}).get("url", ""),
+        "imgurl": recipe_data.get("image", {}).get("url", ""),
         "rating_count": int(
             recipe_data.get("aggregateRating", {}).get("ratingCount", 0)
         ),
@@ -165,13 +165,14 @@ def construct_text_from_recipe(recipe):
 def main():
     sitemap_url = "https://www.allrecipes.com/sitemap_1.xml"
     recipe_urls = fetch_sitemap_urls(sitemap_url)
-    print("Fetched urls")
+    print(len(recipe_urls))
+    """
     recipes = []
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
         count = 0
-        for url in recipe_urls[7440:12000]:
+        for url in recipe_urls[9561:16000]:
             # for url in recipe_urls[6:]:
             count += 1
             if count % 5 == 0:
@@ -188,11 +189,12 @@ def main():
                     # recipe_info["embedding"] = create_embedding(text)
                     recipe_info["kw_search_text"] = text
                     recipe_info["embedding2"] = create_embedding(text)
-                    #print(recipe_info)
+                    # print(recipe_info)
                     supabase.table("recipes2").insert(recipe_info).execute()
             except Exception as e:
                 print("Error ", e)
         browser.close()
+    """
     return
 
 
@@ -202,7 +204,7 @@ def create_embedding(query):
         "inputs": query,
     }
     response = requests.post(API_URL, headers=headers, json=payload)
-    #print(response.json())
+    # print(response.json())
 
     return response.json()
 
