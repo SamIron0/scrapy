@@ -23,6 +23,15 @@ supabase_key: str = os.getenv("SUPABASE_API_KEY")
 supabase: Client = create_client(supabase_url, supabase_key)
 
 
+async def create_embedding(query):
+    API_URL = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
+    payload = {
+        "inputs": query,
+    }
+    response = requests.post(API_URL, headers=headers, json=payload)
+    return response.json()
+
+
 def convert_iso8601_to_hours_minutes(duration_str):
     if duration_str == "":
         return 0, 0
@@ -79,7 +88,6 @@ def extract_recipe_info(script_content):
         "rating_value": float(
             recipe_data.get("aggregateRating", {}).get("ratingValue", 0)
         ),
-        "embedding": [],
         "url": "",
         "kw_search_text": "",
     }
@@ -162,9 +170,10 @@ def main():
         browser = p.chromium.launch()
         page = browser.new_page()
         count = 0
-        for url in recipe_urls[:60]:
+        for url in recipe_urls[7401:7402]:
+        #for url in recipe_urls[6:]:
             count += 1
-            if count % 10 == 0:
+            if count % 100 == 0:
                 print(count, "done\n")
             try:
                 recipe_info = scrape_recipe(page, url)
@@ -175,8 +184,10 @@ def main():
                     # recipes.append(recipe_info)
                     text = construct_text_from_recipe(recipe_info)
                     # print("text", text)
-                    recipe_info["embedding"] = create_embedding(text)
+                    # recipe_info["embedding"] = create_embedding(text)
                     recipe_info["kw_search_text"] = text
+                    recipe_info["embedding"] = create_embedding(text)
+                    print(recipe_info)
                     supabase.table("recipes2").insert(recipe_info).execute()
             except Exception as e:
                 print("Error ", e)
