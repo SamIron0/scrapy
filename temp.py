@@ -11,12 +11,11 @@ import time
 import json
 import requests
 from playwright.sync_api import sync_playwright
-import cohere
 import os
 from supabase import Client, create_client
 import uuid
 
-co = cohere.Client(os.getenv("COHERE_API_KEY"))  # This is your trial API key
+headers = {"Authorization": f"Bearer {api_key}"}
 
 supabase_url: str = "https://nrmhfqjygpjiqcixhpvn.supabase.co"
 supabase_key: str = os.getenv("SUPABASE_API_KEY")
@@ -170,8 +169,8 @@ def main():
         browser = p.chromium.launch()
         page = browser.new_page()
         count = 0
-        for url in recipe_urls[7401:7402]:
-        #for url in recipe_urls[6:]:
+        for url in recipe_urls[7403:7425]:
+            # for url in recipe_urls[6:]:
             count += 1
             if count % 100 == 0:
                 print(count, "done\n")
@@ -195,17 +194,15 @@ def main():
     return
 
 
-def create_embedding(text):
-    try:
-        response = co.embed(
-            model="embed-english-v3.0",
-            texts=[text],
-            input_type="classification",
-            truncate="NONE",
-        )
-    except Exception as e:
-        print("Embedding error", e)
-    return response.embeddings[0]
+def create_embedding(query):
+    API_URL = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
+    payload = {
+        "inputs": query,
+    }
+    response = requests.post(API_URL, headers=headers, json=payload)
+    print(response.json())
+
+    return response
 
 
 if __name__ == "__main__":
