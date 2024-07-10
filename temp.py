@@ -101,7 +101,6 @@ def fetch_sitemap_urls(sitemap_url):
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get("https://www.allrecipes.com")
-    # time.sleep(2)
     driver.get(sitemap_url)
     content = driver.page_source
     soup = BeautifulSoup(content, "lxml")
@@ -117,7 +116,7 @@ def fetch_sitemap_urls(sitemap_url):
 def construct_text_from_recipe(recipe):
     parts = []
     time = recipe["total_time"]
-    time_str = f"{ time[0]}hrs {time[1]}mins"
+    time_str = f"{time[0]}hrs {time[1]}mins"
     if recipe.get("name"):
         parts.append(f"Dish: {recipe['name']}")
     if recipe.get("category") != None:
@@ -139,29 +138,31 @@ def main():
     sitemap_url = "https://www.allrecipes.com/sitemap_2.xml"
     recipe_urls = fetch_sitemap_urls(sitemap_url)
     recipes = []
+    count = 0
     with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
-        count = 0
-        for url in recipe_urls[2747:2799]:
-            count += 1
-            if count % 10 == 0:
-                print(count, "done\n")
-                time.sleep(1)  # Add delay to reduce CPU load
-            try:
-                recipe_info = scrape_recipe(page, url)
-                if (
-                    recipe_info["rating_count"] > 200
-                    and recipe_info["rating_value"] > 4.5
-                ):
-                    text = construct_text_from_recipe(recipe_info)
-                    recipe_info["kw_search_text"] = text
-                    recipe_info["embedding2"] = create_embedding(text)
-                    supabase.table("recipes2").insert(recipe_info).execute()
-            except Exception as e:
-                print("Error ", e)
-            time.sleep(0.5)  # Add delay to reduce CPU load
-        browser.close()
+        for i in range(0, len(recipe_urls[2901:4000]), 200):
+            print('\nlaunching browser...')
+            browser = p.chromium.launch()
+            page = browser.new_page()
+            for url in recipe_urls[2901 + i : 2901 + i + 200]:
+                count += 1
+                if count % 10 == 0:
+                    print(count, "done\n")
+                    #time.sleep(1)  # Add delay to reduce CPU load
+                try:
+                    recipe_info = scrape_recipe(page, url)
+                    if (
+                        recipe_info["rating_count"] > 200
+                        and recipe_info["rating_value"] > 4.5
+                    ):
+                        text = construct_text_from_recipe(recipe_info)
+                        recipe_info["kw_search_text"] = text
+                        recipe_info["embedding2"] = create_embedding(text)
+                        supabase.table("recipes2").insert(recipe_info).execute()
+                except Exception as e:
+                    print("Error ", e)
+                #time.sleep(0.5)  # Add delay to reduce CPU load
+            browser.close()
     return
 
 
