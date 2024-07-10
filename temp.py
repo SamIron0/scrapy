@@ -140,11 +140,11 @@ def main():
     recipes = []
     count = 0
     with sync_playwright() as p:
-        for i in range(0, len(recipe_urls[3961:]), 2000):
+        for i in range(0, len(recipe_urls[7141:]), 2000):
             print("\nlaunching browser...")
             browser = p.chromium.launch()
             page = browser.new_page()
-            for url in recipe_urls[3961 + i : 3961 + i + 2000]:
+            for url in recipe_urls[7141 + i : 7141 + i + 2000]:
                 count += 1
                 if count % 10 == 0:
                     print(count, "done\n")
