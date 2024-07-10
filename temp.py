@@ -140,15 +140,15 @@ def main():
     recipes = []
     count = 0
     with sync_playwright() as p:
-        for i in range(0, len(recipe_urls[2901:4000]), 200):
-            print('\nlaunching browser...')
+        for i in range(0, len(recipe_urls[3961:]), 2000):
+            print("\nlaunching browser...")
             browser = p.chromium.launch()
             page = browser.new_page()
-            for url in recipe_urls[2901 + i : 2901 + i + 200]:
+            for url in recipe_urls[3961 + i : 3961 + i + 2000]:
                 count += 1
                 if count % 10 == 0:
                     print(count, "done\n")
-                    #time.sleep(1)  # Add delay to reduce CPU load
+                    # time.sleep(1)  # Add delay to reduce CPU load
                 try:
                     recipe_info = scrape_recipe(page, url)
                     if (
@@ -161,7 +161,7 @@ def main():
                         supabase.table("recipes2").insert(recipe_info).execute()
                 except Exception as e:
                     print("Error ", e)
-                #time.sleep(0.5)  # Add delay to reduce CPU load
+                # time.sleep(0.5)  # Add delay to reduce CPU load
             browser.close()
     return
 
