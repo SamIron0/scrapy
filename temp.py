@@ -1,5 +1,4 @@
 import isodate
-
 from datetime import timedelta
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -16,7 +15,6 @@ from supabase import Client, create_client
 import uuid
 
 api_key = os.getenv("HUGGINGFACE_API_KEY")
-
 headers = {"Authorization": f"Bearer {api_key}"}
 
 supabase_url: str = "https://nrmhfqjygpjiqcixhpvn.supabase.co"
@@ -24,23 +22,11 @@ supabase_key: str = os.getenv("SUPABASE_API_KEY")
 supabase: Client = create_client(supabase_url, supabase_key)
 
 
-async def create_embedding(query):
-    API_URL = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
-    payload = {
-        "inputs": query,
-    }
-    response = requests.post(API_URL, headers=headers, json=payload)
-    return response.json()
-
-
 def convert_iso8601_to_hours_minutes(duration_str):
     if duration_str == "":
         return 0, 0
     try:
-        # Parse the ISO 8601 duration string
         duration = isodate.parse_duration(duration_str)
-
-        # Extract hours and minutes from the duration
         total_minutes = int(duration.total_seconds() / 60)
         hours = total_minutes // 60
         minutes = total_minutes % 60
@@ -104,7 +90,6 @@ def scrape_recipe(page, url):
 
 
 def fetch_sitemap_urls(sitemap_url):
-    # Set up Chrome options to run headless (no GUI)
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
@@ -113,30 +98,19 @@ def fetch_sitemap_urls(sitemap_url):
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     )
 
-    # Set up the webdriver
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
-
-    # Navigate to the homepage first
     driver.get("https://www.allrecipes.com")
-    time.sleep(2)  # wait for a couple of seconds to mimic natural browsing
-
-    # Fetch the sitemap URL
+    # time.sleep(2)
     driver.get(sitemap_url)
     content = driver.page_source
-
-    # Parse the XML with BeautifulSoup
-    soup = BeautifulSoup(content, "lxml")  # Use 'lxml' as the parser
-    # Extract the first 20 URLs containing '/recipe/'
+    soup = BeautifulSoup(content, "lxml")
     urls = []
     for url_element in soup.find_all("loc"):
         url = url_element.text
         if "/recipe/" in url:
             urls.append(url)
-
-    # Clean up
     driver.quit()
-
     return urls
 
 
@@ -158,43 +132,36 @@ def construct_text_from_recipe(recipe):
         parts.append(f"Instructions: {recipe['instructions']}")
     if recipe.get("description") != None:
         parts.append(f"Description: {recipe['description']}")
-
     return "\n".join(parts)
 
 
 def main():
-    sitemap_url = "https://www.allrecipes.com/sitemap_1.xml"
+    sitemap_url = "https://www.allrecipes.com/sitemap_2.xml"
     recipe_urls = fetch_sitemap_urls(sitemap_url)
-    print(len(recipe_urls))
-    """
     recipes = []
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
         count = 0
-        for url in recipe_urls[9561:16000]:
-            # for url in recipe_urls[6:]:
+        for url in recipe_urls[2747:2799]:
             count += 1
-            if count % 5 == 0:
+            if count % 10 == 0:
                 print(count, "done\n")
+                time.sleep(1)  # Add delay to reduce CPU load
             try:
                 recipe_info = scrape_recipe(page, url)
                 if (
                     recipe_info["rating_count"] > 200
                     and recipe_info["rating_value"] > 4.5
                 ):
-                    # recipes.append(recipe_info)
                     text = construct_text_from_recipe(recipe_info)
-                    # print("text", text)
-                    # recipe_info["embedding"] = create_embedding(text)
                     recipe_info["kw_search_text"] = text
                     recipe_info["embedding2"] = create_embedding(text)
-                    # print(recipe_info)
                     supabase.table("recipes2").insert(recipe_info).execute()
             except Exception as e:
                 print("Error ", e)
+            time.sleep(0.5)  # Add delay to reduce CPU load
         browser.close()
-    """
     return
 
 
@@ -204,8 +171,6 @@ def create_embedding(query):
         "inputs": query,
     }
     response = requests.post(API_URL, headers=headers, json=payload)
-    # print(response.json())
-
     return response.json()
 
 
