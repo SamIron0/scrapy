@@ -135,25 +135,28 @@ def construct_text_from_recipe(recipe):
 
 
 def main():
-    sitemap_url = "https://www.allrecipes.com/sitemap_2.xml"
+    sitemap_url = "https://www.allrecipes.com/sitemap_3.xml"
     recipe_urls = fetch_sitemap_urls(sitemap_url)
     recipes = []
     count = 0
     with sync_playwright() as p:
-        for i in range(0, len(recipe_urls[8591:]), 2000):
+        for i in range(0, len(recipe_urls[11850:]), 2000):
             print("\nlaunching browser...")
             browser = p.chromium.launch()
             page = browser.new_page()
-            for url in recipe_urls[8591 + i : 8591 + i + 2000]:
+            # for url in recipe_urls[10704 + i : 10704 + i + 2000]:
+            for url in recipe_urls[11850 + i : 11850 + i + 2000]:
                 count += 1
-                if count % 10 == 0:
+                if count % 100 == 0:
                     print(count, "done\n")
                     # time.sleep(1)  # Add delay to reduce CPU load
                 try:
                     recipe_info = scrape_recipe(page, url)
                     if (
-                        recipe_info["rating_count"] > 200
-                        and recipe_info["rating_value"] > 4.5
+                        # recipe_info["rating_count"] > 200
+                        # and recipe_info["rating_value"] > 4.5
+                        recipe_info["rating_count"] > 100
+                        and recipe_info["rating_value"] > 4.0
                     ):
                         text = construct_text_from_recipe(recipe_info)
                         recipe_info["kw_search_text"] = text
