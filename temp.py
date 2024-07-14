@@ -156,7 +156,7 @@ def main():
                     if (
                         # recipe_info["rating_count"] > 200
                         # and recipe_info["rating_value"] > 4.5
-                        recipe_info["rating_count"] > 50
+                        recipe_info["rating_count"] > 20
                         and recipe_info["rating_value"] > 3.5
                     ):
                         text = construct_text_from_recipe(recipe_info)
