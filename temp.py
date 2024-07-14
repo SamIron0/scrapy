@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 import time
 import json
 import requests
-from playwright.async_api import async_playwright
+from playwright.sync_api import sync_playwright
 import os
 from supabase import Client, create_client
 import uuid
@@ -86,11 +86,9 @@ def extract_recipe_info(script_content):
     return recipe
 
 
-async def scrape_recipe(page, url):
-    await page.goto(url)
-    script_content = await page.query_selector(
-        "script#allrecipes-schema_1-0"
-    ).text_content()
+def scrape_recipe(page, url):
+    page.goto(url)
+    script_content = page.query_selector("script#allrecipes-schema_1-0").text_content()
     recipe_info = extract_recipe_info(script_content)
     recipe_info["url"] = url
     return recipe_info
@@ -134,45 +132,45 @@ def construct_text_from_recipe(recipe):
         parts.append(f"Cuisine: {recipe['cuisine']}")
     if recipe.get("total_time") != None:
         parts.append(f"Cooking Time: {time_str}")
-    if recipe.get("instructions") != None:
-        parts.append(f"Instructions: {recipe['instructions']}")
-    if recipe.get("description") != None:
-        parts.append(f"Description: {recipe['description']}")
     return "\n".join(parts)
 
 
-async def main():
+def main():
     sitemap_url = "https://www.allrecipes.com/sitemap_3.xml"
     recipe_urls = fetch_sitemap_urls(sitemap_url)
     recipes = []
     count = 0
-    async with async_playwright() as p:
+    with sync_playwright() as p:
         for i in range(0, len(recipe_urls[11850:]), 2000):
             print("\nlaunching browser...")
-            browser = await p.chromium.launch()
-            page = await browser.new_page()
+            browser = p.chromium.launch()
+            page = browser.new_page()
+            # for url in recipe_urls[10704 + i : 10704 + i + 2000]:
             for url in recipe_urls[11850 + i : 11850 + i + 2000]:
                 count += 1
                 if count % 100 == 0:
-                    print(count, "done\n sleeping...")
-                    await asyncio.sleep(60)
+                    print(count, "done\n")
+                    time.sleep(60)  # sleep for 60 seconds
                 try:
-                    recipe_info = await scrape_recipe(page, url)
+                    recipe_info = scrape_recipe(page, url)
                     if (
+                        # recipe_info["rating_count"] > 200
+                        # and recipe_info["rating_value"] > 4.5
                         recipe_info["rating_count"] > 50
                         and recipe_info["rating_value"] > 3.5
                     ):
                         text = construct_text_from_recipe(recipe_info)
                         recipe_info["kw_search_text"] = text
-                        recipe_info["embeddings"] = await create_embedding(text)
+                        recipe_info["embeddings"] = create_embedding(text)
                         supabase.table("recipes2").insert(recipe_info).execute()
                 except Exception as e:
                     print("Error ", e)
-            await browser.close()
+                # time.sleep(0.5)  # Add delay to reduce CPU load
+            browser.close()
     return
 
 
-async def create_embedding(query):
+def create_embedding(query):
     response = co.embed(
         model="embed-english-v3.0",
         texts=[query],
@@ -184,4 +182,4 @@ async def create_embedding(query):
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
