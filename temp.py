@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 import time
 import json
 import requests
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 import os
 from supabase import Client, create_client
 import uuid
@@ -86,9 +86,11 @@ def extract_recipe_info(script_content):
     return recipe
 
 
-def scrape_recipe(page, url):
-    page.goto(url)
-    script_content = page.query_selector("script#allrecipes-schema_1-0").text_content()
+async def scrape_recipe(page, url):
+    await page.goto(url)
+    script_content = await page.query_selector(
+        "script#allrecipes-schema_1-0"
+    ).text_content()
     recipe_info = extract_recipe_info(script_content)
     recipe_info["url"] = url
     return recipe_info
@@ -144,25 +146,19 @@ async def main():
     recipe_urls = fetch_sitemap_urls(sitemap_url)
     recipes = []
     count = 0
-    with sync_playwright() as p:
+    async with async_playwright() as p:
         for i in range(0, len(recipe_urls[11850:]), 2000):
             print("\nlaunching browser...")
-            browser = p.chromium.launch()
-            page = browser.new_page()
-            # for url in recipe_urls[10704 + i : 10704 + i + 2000]:
+            browser = await p.chromium.launch()
+            page = await browser.new_page()
             for url in recipe_urls[11850 + i : 11850 + i + 2000]:
                 count += 1
                 if count % 100 == 0:
-
                     print(count, "done\n")
                     await asyncio.sleep(60)
-
-                    # time.sleep(1)  # Add delay to reduce CPU load
                 try:
-                    recipe_info = scrape_recipe(page, url)
+                    recipe_info = await scrape_recipe(page, url)
                     if (
-                        # recipe_info["rating_count"] > 200
-                        # and recipe_info["rating_value"] > 4.5
                         recipe_info["rating_count"] > 50
                         and recipe_info["rating_value"] > 3.5
                     ):
@@ -172,8 +168,7 @@ async def main():
                         supabase.table("recipes2").insert(recipe_info).execute()
                 except Exception as e:
                     print("Error ", e)
-                # time.sleep(0.5)  # Add delay to reduce CPU load
-            browser.close()
+            await browser.close()
     return
 
 
