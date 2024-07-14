@@ -1,3 +1,4 @@
+import asyncio
 import isodate
 from datetime import timedelta
 from selenium import webdriver
@@ -13,6 +14,10 @@ from playwright.sync_api import sync_playwright
 import os
 from supabase import Client, create_client
 import uuid
+import cohere
+
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+co = cohere.Client(COHERE_API_KEY)
 
 api_key = os.getenv("HUGGINGFACE_API_KEY")
 headers = {"Authorization": f"Bearer {api_key}"}
@@ -134,7 +139,7 @@ def construct_text_from_recipe(recipe):
     return "\n".join(parts)
 
 
-def main():
+async def main():
     sitemap_url = "https://www.allrecipes.com/sitemap_3.xml"
     recipe_urls = fetch_sitemap_urls(sitemap_url)
     recipes = []
@@ -148,19 +153,22 @@ def main():
             for url in recipe_urls[11850 + i : 11850 + i + 2000]:
                 count += 1
                 if count % 100 == 0:
+
                     print(count, "done\n")
+                    await asyncio.sleep(60)
+
                     # time.sleep(1)  # Add delay to reduce CPU load
                 try:
                     recipe_info = scrape_recipe(page, url)
                     if (
                         # recipe_info["rating_count"] > 200
                         # and recipe_info["rating_value"] > 4.5
-                        recipe_info["rating_count"] > 100
-                        and recipe_info["rating_value"] > 4.0
+                        recipe_info["rating_count"] > 50
+                        and recipe_info["rating_value"] > 3.5
                     ):
                         text = construct_text_from_recipe(recipe_info)
                         recipe_info["kw_search_text"] = text
-                        recipe_info["embedding2"] = create_embedding(text)
+                        recipe_info["embeddings"] = await create_embedding(text)
                         supabase.table("recipes2").insert(recipe_info).execute()
                 except Exception as e:
                     print("Error ", e)
@@ -169,14 +177,16 @@ def main():
     return
 
 
-def create_embedding(query):
-    API_URL = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
-    payload = {
-        "inputs": query,
-    }
-    response = requests.post(API_URL, headers=headers, json=payload)
-    return response.json()
+async def create_embedding(query):
+    response = co.embed(
+        model="embed-english-v3.0",
+        texts=[query],
+        input_type="classification",
+        truncate="NONE",
+    )
+    res = response.embeddings[0]
+    return res
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
