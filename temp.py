@@ -154,7 +154,7 @@ async def main():
             for url in recipe_urls[11850 + i : 11850 + i + 2000]:
                 count += 1
                 if count % 100 == 0:
-                    print(count, "done\n")
+                    print(count, "done\n sleeping...")
                     await asyncio.sleep(60)
                 try:
                     recipe_info = await scrape_recipe(page, url)
