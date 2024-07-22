@@ -28,7 +28,7 @@ def main():
             ).execute()
             # print(recipe_name, "=>", cleaned_name)
 
-        print("edited ", count, " recipes")
+    print("edited ", count, " recipes")
 
 
 if __name__ == "__main__":
