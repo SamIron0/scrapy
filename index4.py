@@ -11,7 +11,7 @@ import html
 
 def main():
     recipes = supabase.table("recipes2").select("*").execute()
-    print ("got recipes from supabase", len(recipes.data))
+    # print ("got recipes from supabase", len(recipes.data))
     for recipe in recipes.data:
         recipe_name = recipe["name"]
         cleaned_name = html.unescape(
@@ -20,13 +20,15 @@ def main():
         count = 0
         if cleaned_name != recipe_name:
             count += 1
-            if(count > 1):
+            if count > 1:
                 break
             # Update the recipe name in the database
             supabase.table("recipes2").update({"name": cleaned_name}).eq(
                 "id", recipe["id"]
             ).execute()
-            print(recipe_name, "=>", cleaned_name)
+            # print(recipe_name, "=>", cleaned_name)
+
+        print("edited ", count, " recipes")
 
 
 if __name__ == "__main__":

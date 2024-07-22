@@ -94,6 +94,23 @@ def scrape_recipe(page, url):
     return recipe_info
 
 
+def construct_text_from_recipe(recipe):
+    parts = []
+    time = recipe["total_time"]
+    time_str = f"{time[0]}hrs {time[1]}mins"
+    if recipe.get("name"):
+        parts.append(f"Dish: {recipe['name']}")
+    if recipe.get("category") != None:
+        parts.append(f"Category: {recipe['category']}")
+    if recipe.get("ingredients"):
+        parts.append(f"Ingredients: {recipe['ingredients']}")
+    if recipe.get("cuisine") != None:
+        parts.append(f"Cuisine: {recipe['cuisine']}")
+    if recipe.get("total_time") != None:
+        parts.append(f"Cooking Time: {time_str}")
+    return "\n".join(parts)
+
+
 def fetch_sitemap_urls(sitemap_url):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -114,28 +131,11 @@ def fetch_sitemap_urls(sitemap_url):
         if "/recipe/" in url:
             urls.append(url)
     driver.quit()
-    return urls[0:5000]  # 11050]
-
-
-def construct_text_from_recipe(recipe):
-    parts = []
-    time = recipe["total_time"]
-    time_str = f"{time[0]}hrs {time[1]}mins"
-    if recipe.get("name"):
-        parts.append(f"Dish: {recipe['name']}")
-    if recipe.get("category") != None:
-        parts.append(f"Category: {recipe['category']}")
-    if recipe.get("ingredients"):
-        parts.append(f"Ingredients: {recipe['ingredients']}")
-    if recipe.get("cuisine") != None:
-        parts.append(f"Cuisine: {recipe['cuisine']}")
-    if recipe.get("total_time") != None:
-        parts.append(f"Cooking Time: {time_str}")
-    return "\n".join(parts)
+    return urls  # 11050]
 
 
 def main():
-    sitemap_url = "https://www.allrecipes.com/sitemap_3.xml"
+    sitemap_url = "https://www.allrecipes.com/sitemap_4.xml"
     recipe_urls = fetch_sitemap_urls(sitemap_url)
     print(len(recipe_urls))
     recipes = []
@@ -144,25 +144,19 @@ def main():
         print("\nlaunching browser...")
         browser = p.chromium.launch()
         page = browser.new_page()
-        # for url in recipe_urls[10704 + i : 10704 + i + 2000]:
         for url in recipe_urls:
             count += 1
             if count % 100 == 0:
                 print(count, "done\n")
                 time.sleep(60)  # sleep for 60 seconds
             try:
+                if supabase.table("recipes2").select("*").eq("url", url).execute().data:
+                    #print("skipping ", url)
+                    continue
                 recipe_info = scrape_recipe(page, url)
                 if (
-                    # recipe_info["rating_count"] > 200
-                    # and recipe_info["rating_value"] > 4.5
-                    (
-                        recipe_info["rating_count"] > 20
-                        and (recipe_info["rating_value"] > 3.5)
-                    )
-                    and not supabase.table("recipes2")
-                    .select("*")
-                    .eq("url", recipe_info["url"])
-                    .execute()
+                    recipe_info["rating_count"] > 20
+                    and recipe_info["rating_value"] > 3.5
                 ):
                     text = construct_text_from_recipe(recipe_info)
                     recipe_info["kw_search_text"] = text
@@ -170,7 +164,6 @@ def main():
                     supabase.table("recipes2").insert(recipe_info).execute()
             except Exception as e:
                 print("Error ", e)
-            # time.sleep(0.5)  # Add delay to reduce CPU load
         browser.close()
     return
 
