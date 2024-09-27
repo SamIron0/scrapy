@@ -1,4 +1,4 @@
-#!/Users/samuelironkwe/Documents/fitpal/backend/recipe-scraper/myenv/bin/python3.12
+#!/Users/samuelironkwe/Documents/scrapy/myenv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
