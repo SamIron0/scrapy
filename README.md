@@ -1,74 +1,45 @@
-# Scrape the Web with entities extraction using OpenAI Function
+# Web Scraper with Entity Extraction and RAG-based Chat
 
 ## What is this?
 
-This codebase allows you to scrape any website and extract relevant data points easily using [OpenAI Functions](https://openai.com/blog/function-calling-and-other-api-updates) and [LangChain](https://python.langchain.com/docs/get_started/introduction).
-Create a schema in `schemas.py`, pick a url, and use them with `scrape_with_playwright()` in `main.py` to start scraping.
-
-Tip: each website has the bulk of content either in `<p>`, `<span>` or `<h>` tags. For best performance, choose a combination of tags that work for you.
-
-### Example
-
-1. Define the schema of the website you want to scrape in `schemas.py` (Pydantic class or dictionary are both fine):
-
-   ```python
-   class SchemaNewsWebsites(BaseModel):
-       news_headline: str
-       news_short_summary: str
-   ```
-
-2. To start scraping, in `main.py`, run something like this:
-
-   ```python
-   asyncio.run(scrape_with_playwright(
-           url="https://www.bbc.com",
-           tags=["span"],
-           schema_pydantic=SchemaNewsWebsites
-       ))
-   ```
+This codebase allows you to scrape any website, extract relevant data points using OpenAI Functions and LangChain, and then chat with the extracted data using RAG (Retrieval-Augmented Generation).
 
 ## Setup
 
 ### 1. Create a new Python virtual environment
 
 `python -m venv virtual-env` or `python3 -m venv virtual-env` (Mac)
-
 `py -m venv virtual-env` (Windows 11)
 
 ### 2. Activate virtual environment
 
 `.\virtual-env\Scripts\activate` (Windows)
-
 `source virtual-env/bin/activate` (Mac)
 
-### 3. Install dependencies using Poetry
+### 3. Install dependencies
 
-Run `poetry install --sync` or `poetry install`
+Run `pip install -r requirements.txt`
 
 ### 4. Install playwright
 
-```bash
-playwright install
-```
+### 5. Create a new `.env` file to store API keys
 
-### 5. Create a new `.env` file to store OpenAI's API key
-
-```text
 OPENAI_API_KEY=XXXXXX
-```
+DEEPINFRA_API_TOKEN=XXXXXX
 
 ## Usage
 
 ### Run locally
 
 ```bash
-python main.py
+python app.py
 ```
+
+1. Enter the URL of the website you want to scrape.
+2. The program will extract and display the JSON data from the website.
+3. You can then ask questions about the website content, and the program will use RAG to provide answers based on the extracted information.
 
 ## Additional Information
 
-- Add onto this a FastAPI server to serve this as an API endpoint for ease of use.
-
-- Use caution when scraping. Don't do anything I wouldn't do (illegal)
-
-- P.S I've added this functionality to LangChain [in this PR](https://github.com/langchain-ai/langchain/pull/8732). You can read [the official docs here.](https://python.langchain.com/docs/use_cases/web_scraping#quickstart)
+- This project now uses embeddings and FAISS for efficient retrieval of relevant information.
+- The chat functionality uses a conversational retrieval chain from LangChain to provide context-aware responses.
