@@ -6,38 +6,53 @@ This codebase allows you to scrape any website, extract relevant data points usi
 
 ## Setup
 
-### 1. Create a new Python virtual environment
+1. Create a new Python virtual environment:
+   ```
+   python -m venv venv
+   ```
 
-`python -m venv virtual-env` or `python3 -m venv virtual-env` (Mac)
-`py -m venv virtual-env` (Windows 11)
+2. Activate the virtual environment:
+   - Windows: `venv\Scripts\activate`
+   - macOS/Linux: `source venv/bin/activate`
 
-### 2. Activate virtual environment
+3. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
 
-`.\virtual-env\Scripts\activate` (Windows)
-`source virtual-env/bin/activate` (Mac)
+4. Create a `.env` file in the project root and add your API keys:
+   ```
+   DEEPINFRA_API_TOKEN=your_deepinfra_api_token
+   ```
 
-### 3. Install dependencies
+## Running the App
 
-Run `pip install -r requirements.txt`
-
-### 4. Install playwright
-
-### 5. Create a new `.env` file to store API keys
-
-OPENAI_API_KEY=XXXXXX
-DEEPINFRA_API_TOKEN=XXXXXX
-
-## Usage
-
-### Run locally
-
-```bash
-python app.py
+For development:
+```
+flask run
 ```
 
-1. Enter the URL of the website you want to scrape.
-2. The program will extract and display the JSON data from the website.
-3. You can then ask questions about the website content, and the program will use RAG to provide answers based on the extracted information.
+For production:
+```
+gunicorn wsgi:app
+```
+
+
+## API Endpoints
+
+1. `/api/scrape` (POST)
+   - Input: JSON with `url` field
+   - Output: JSON data extracted from the webpage
+
+2. `/api/chat` (POST)
+   - Input: JSON with `question` and `context` fields
+   - Output: Answer based on the provided context
+
+## Running Tests
+
+```
+pytest
+```
 
 ## Additional Information
 

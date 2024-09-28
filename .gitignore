@@ -2,3 +2,7 @@
 __pycache__
 myenv
 .vscode
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
