@@ -10,6 +10,9 @@ This project is a web application that combines web scraping capabilities with a
 - Conversational AI using a large language model
 - Vector store for efficient information retrieval
 - User-friendly web interface
+- Scrapy integration for advanced web scraping
+
+![Scrapy Demo](images/scrapy_demo.png)
 
 ## Technologies Used
 
