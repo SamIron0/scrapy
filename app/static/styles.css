@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#scrape-result, #chat-history {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    min-height: 100px;
+}
+
+.json-container {
+    font-family: monospace;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.json-item {
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.json-item strong {
+    color: #0066cc;
+}

@@ -26,13 +26,19 @@ def scrape():
 def chat():
     question = request.json.get("question")
     context = request.json.get("context")
+    chat_history = request.json.get("chat_history", [])
     if not question or not context:
         return jsonify({"error": "Question and context are required"}), 400
 
     try:
         vector_store = create_vector_store(context)
         chain = get_conversational_chain(vector_store)
-        response = chain({"question": question, "chat_history": []})
-        return jsonify({"answer": response["answer"]})
+        formatted_history = [(item['question'], item['answer']) for item in chat_history]
+        print(f"Formatted chat history: {formatted_history}")
+        response = chain.invoke({"question": question, "chat_history": formatted_history})
+        answer = response["answer"]
+        updated_history = chat_history + [{"question": question, "answer": answer}]
+        
+        return jsonify({"answer": answer, "chat_history": updated_history})
     except Exception as e:
         return jsonify({"error": str(e)}), 500

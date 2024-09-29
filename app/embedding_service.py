@@ -1,12 +1,16 @@
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import ConversationalRetrievalChain
 from langchain_community.llms import DeepInfra
 from sentence_transformers import SentenceTransformer
 import os
 from typing import List
+from app.config import DEEPINFRA_API_TOKEN
 
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+model = SentenceTransformer(
+    "sentence-transformers/all-MiniLM-L6-v2"
+)
+
 
 def create_vector_store(texts: str, batch_size: int = 64) -> FAISS:
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -24,9 +28,20 @@ def create_vector_store(texts: str, batch_size: int = 64) -> FAISS:
 
     return vector_store
 
+
 def get_conversational_chain(vector_store: FAISS) -> ConversationalRetrievalChain:
     retriever = vector_store.as_retriever(search_kwargs={"k": 3})
-    llm = DeepInfra(model_id="meta-llama/Meta-Llama-3.1-70B-Instruct")
-    return ConversationalRetrievalChain.from_llm(llm, retriever=retriever)
+    
+    if not DEEPINFRA_API_TOKEN:
+        raise ValueError("DEEPINFRA_API_TOKEN is not set. Please set it in your environment variables.")
+    
+    llm = DeepInfra(model_id="meta-llama/Meta-Llama-3.1-70B-Instruct", deepinfra_api_token=DEEPINFRA_API_TOKEN)
+    return ConversationalRetrievalChain.from_llm(
+        llm,
+        retriever=retriever,
+        return_source_documents=True,
+        return_generated_question=True,
+    )
+
 
 __all__ = ["create_vector_store", "get_conversational_chain"]
