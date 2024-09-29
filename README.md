@@ -12,7 +12,7 @@ This project is a web application that combines web scraping capabilities with a
 - User-friendly web interface
 - Scrapy integration for advanced web scraping
 
-![Scrapy Demo](images/scrapy_demo.png)
+![Scrapy Demo](images/scrapy.png)
 
 ## Technologies Used
 
