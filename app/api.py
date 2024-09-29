@@ -34,11 +34,10 @@ def chat():
         vector_store = create_vector_store(context)
         chain = get_conversational_chain(vector_store)
         formatted_history = [(item['question'], item['answer']) for item in chat_history]
-        print(f"Formatted chat history: {formatted_history}")
         response = chain.invoke({"question": question, "chat_history": formatted_history})
         answer = response["answer"]
         updated_history = chat_history + [{"question": question, "answer": answer}]
-        
+      
         return jsonify({"answer": answer, "chat_history": updated_history})
     except Exception as e:
         return jsonify({"error": str(e)}), 500

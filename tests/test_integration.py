@@ -13,15 +13,9 @@ def client():
         yield client
 
 
-def test_scrape_endpoint(client):
-    response = client.post("/api/scrape", json={"url": "https://news.ycombinator.com"})
-    assert response.status_code == 200
-    assert "data" in response.json
-
-
 def test_chat_endpoint(client):
     context = "This is a test context for the chat endpoint."
-    initial_history = [("What is this about?", "This is a test context.")]
+    initial_history = [{"question": "What is this about?", "answer": "This is a test context."}]
     response = client.post(
         "/api/chat",
         json={
@@ -37,7 +31,7 @@ def test_chat_endpoint(client):
 
 
 def test_full_pipeline():
-    url = "https://news.ycombinator.com"
+    url = "https://ironkwe.site/about"
     try:
         html_content = get_page_content(url)
         cleaned_text = clean_html(html_content)

@@ -14,7 +14,7 @@ def client():
 
 def test_scrape_endpoint_performance(client):
 
-    url = "https://news.ycombinator.com/"
+    url = "https://ironkwe.site/about/"
     start_time = time.time()
     response = client.post("/api/scrape", json={"url": url})
     end_time = time.time()

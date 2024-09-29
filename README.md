@@ -1,54 +1,85 @@
-# Web Scraper with Entity Extraction and RAG-based Chat
+# Web Scraper and Chat Application
 
-## What is this?
+This project is a web application that combines web scraping capabilities with a chat interface powered by a large language model. It allows users to scrape content from websites and ask questions about the scraped information.
 
-This codebase allows you to scrape any website, extract relevant data points using OpenAI Functions and LangChain, and then chat with the extracted data using RAG (Retrieval-Augmented Generation).
+## Features
+
+- Web scraping using Selenium
+- Content cleaning and processing
+- JSON extraction from scraped content
+- Conversational AI using a large language model
+- Vector store for efficient information retrieval
+- User-friendly web interface
+
+## Technologies Used
+
+- Python 3.x
+- Flask
+- Selenium
+- BeautifulSoup
+- Langchain
+- FAISS
+- Sentence Transformers
+- DeepInfra API (Meta-Llama-3.1-70B-Instruct model)
 
 ## Setup
 
-1. Create a new Python virtual environment:
+1. Clone the repository:
    ```
-   python -m venv venv
+   git clone https://github.com/yourusername/web-scraper-chat-app.git
+   cd web-scraper-chat-app
    ```
 
-2. Activate the virtual environment:
-   - Windows: `venv\Scripts\activate`
-   - macOS/Linux: `source venv/bin/activate`
+2. Create a virtual environment and activate it:
+   ```
+   python -m venv myenv
+   source myenv/bin/activate  # On Windows, use `myenv\Scripts\activate`
+   ```
 
-3. Install dependencies:
+3. Install the required dependencies:
    ```
    pip install -r requirements.txt
    ```
 
-4. Create a `.env` file in the project root and add your API keys:
+4. Set up environment variables:
+   Create a `.env` file in the root directory and add the following:
    ```
    DEEPINFRA_API_TOKEN=your_deepinfra_api_token
    ```
 
-## Running the App
+5. Run the application:
+   ```
+   python wsgi.py
+   ```
 
-For development:
-```
-flask run
-```
+6. Open your web browser and navigate to `http://localhost:5000` to use the application.
 
-For production:
-```
-gunicorn wsgi:app
-```
+## Usage
 
+1. Enter a URL in the input field and click "Scrape" to fetch and process the content.
+2. The scraped content will be displayed in a structured JSON format.
+3. Use the chat interface to ask questions about the scraped content.
+4. The AI will provide answers based on the context of the scraped information.
 
-## API Endpoints
+## Project Structure
 
-1. `/api/scrape` (POST)
-   - Input: JSON with `url` field
-   - Output: JSON data extracted from the webpage
+- `app/`: Main application directory
+  - `static/`: Static files (CSS, JavaScript)
+  - `templates/`: HTML templates
+  - `__init__.py`: Application initialization
+  - `api.py`: API routes
+  - `config.py`: Configuration settings
+  - `embedding_service.py`: Vector store and embedding functionality
+  - `llm_service.py`: Large Language Model service
+  - `main.py`: Flask application setup
+  - `scraper.py`: Web scraping functionality
+- `tests/`: Test files
+- `requirements.txt`: Project dependencies
+- `wsgi.py`: WSGI entry point
 
-2. `/api/chat` (POST)
-   - Input: JSON with `question` and `context` fields
-   - Output: Answer based on the provided context
+## Testing
 
-## Running Tests
+To run the tests, use the following command:
 
 ```
 pytest
