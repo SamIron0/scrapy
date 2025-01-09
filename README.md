@@ -29,7 +29,7 @@ This project is a web application that combines web scraping capabilities with a
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/web-scraper-chat-app.git
+   git clone https://github.com/SamIron0/scrapy.git
    cd web-scraper-chat-app
    ```
 
